@@ -416,5 +416,32 @@
     © 2026 Sidhardha Mobile Repairing Service. All rights reserved.
   </footer>
 
+<script>
+document.getElementById("repairForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("customerName").value;
+    const phone = document.getElementById("customerPhone").value;
+    const mobile = document.getElementById("mobileModel").value;
+    const repair = document.getElementById("repairProblem").value;
+    const pickup = document.getElementById("pickup").value;
+    const message = document.getElementById("additionalMessage").value;
+
+    const whatsappMessage =
+        "Hello Sidhardha Mobile Repairing Service,%0A%0A" +
+        "*New Repair Request*%0A%0A" +
+        "Name: " + name + "%0A" +
+        "Phone: " + phone + "%0A" +
+        "Mobile: " + mobile + "%0A" +
+        "Repair Required: " + repair + "%0A" +
+        "Home Pickup: " + pickup + "%0A" +
+        "Additional Message: " + message;
+
+    const whatsappURL =
+        "https://wa.me/918926090128?text=" + whatsappMessage;
+
+    window.open(whatsappURL, "_blank");
+});
+</script>
 </body>
   </html>
