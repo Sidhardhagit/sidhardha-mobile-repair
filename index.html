@@ -491,6 +491,11 @@
 © 2026 Siddhardha Mobile Repairing Service. All rights reserved.
 </footer>
 <script>
+  function showRepairForm() {
+    const form = document.getElementById("request");
+    form.style.display = "block";
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 document.getElementById("repairForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
