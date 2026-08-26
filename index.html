@@ -54,17 +54,28 @@
     }
 
     .hero {
-      background: linear-gradient(135deg, #0b1220, #163b73);
-      color: white;
-      padding: 90px 6%;
-      text-align: center;
+  background: linear-gradient(135deg, #07111f, #0b2a55, #0d5cff);
+  color: white;
+  padding: 100px 6%;
+  text-align: center;
+  overflow: hidden;
     }
 
     .hero h1 {
-      font-size: 42px;
-      margin-bottom: 15px;
+  font-size: 42px;
+  margin-bottom: 15px;
+  animation: heroTitle 1s ease-out;
     }
-
+    @keyframes heroTitle {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+    }
     .hero p {
       font-size: 20px;
       margin-bottom: 10px;
