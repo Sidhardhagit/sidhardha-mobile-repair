@@ -355,8 +355,34 @@
         <h2>Request a Repair</h2>
         <p>Contact us to arrange your mobile repair service.</p>
       </div>
+      <form id="repairForm">
 
-      <div class="buttons">
+<label for="customerName">Your Name</label>
+<input type="text" id="customerName" name="customerName" placeholder="Enter your name" required>
+
+<label for="customerPhone">Phone Number</label>
+<input type="tel" id="customerPhone" name="customerPhone" placeholder="Enter your phone number" required>
+
+<label for="mobileModel">Mobile Brand / Model</label>
+<input type="text" id="mobileModel" name="mobileModel" placeholder="Example: Samsung Galaxy A54" required>
+
+<label for="repairProblem">Repair Required</label>
+<textarea id="repairProblem" name="repairProblem" rows="4" placeholder="Describe the problem with your phone" required></textarea>
+
+<label for="pickup">Home Pickup Required?</label>
+<select id="pickup" name="pickup">
+<option value="No">No</option>
+<option value="Yes">Yes</option>
+</select>
+
+<label for="additionalMessage">Additional Message (Optional)</label>
+<textarea id="additionalMessage" name="additionalMessage" rows="3" placeholder="Any additional information"></textarea>
+
+<button type="submit" class="btn primary">Submit Repair Request</button>
+
+      </form>
+
+      <div class="buttons"
         <a class="btn primary" href="#contact">Request Home Pickup</a>
       </div>
 
