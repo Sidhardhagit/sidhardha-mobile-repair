@@ -23,10 +23,10 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
-      background: #f7f9fc;
-      color: #172033;
-      line-height: 1.6;
+  font-family: Arial, sans-serif;
+  background: #050b14;
+  color: #eaf2ff;
+  line-height: 1.6;
     }
 
     header {
@@ -54,9 +54,7 @@
     }
 
     .hero {
-  background:
-    radial-gradient(circle at 50% 20%, #164e8a 0%, transparent 45%),
-    linear-gradient(135deg, #030712, #071a35, #0b3b78);
+  background: linear-gradient(135deg, #020617, #071a35, #0b2f5b);
   color: white;
   padding: 100px 6%;
   text-align: center;
@@ -186,10 +184,12 @@
     }
 
     section {
-      padding: 65px 6%;
-      max-width: 1200px;
-      margin: auto;
-    }
+  padding: 65px 6%;
+  max-width: 1200px;
+  margin: auto;
+  background: #07111f;
+  color: white;
+}
 
     .section-title {
       text-align: center;
@@ -197,13 +197,14 @@
     }
 
     .section-title h2 {
-      font-size: 30px;
-      margin-bottom: 8px;
-    }
+  font-size: 30px;
+  margin-bottom: 8px;
+  color: white;
+}
 
-    .section-title p {
-      color: #687386;
-    }
+.section-title p {
+  color: #a9b7c8;
+}
 
     .services {
       display: grid;
@@ -212,20 +213,30 @@
     }
 
     .card {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
-    }
+  background: #0d1b2a;
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid rgba(100, 180, 255, 0.12);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
 
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 35px rgba(0, 150, 255, 0.22);
+  border-color: rgba(100, 180, 255, 0.35);
+}
     .card h3 {
-      margin-bottom: 8px;
-    }
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-size: 20px;
+}
 
-    .card p {
-      color: #687386;
-      font-size: 14px;
-    }
+.card p {
+  color: #a9b7c8;
+  font-size: 14px;
+  line-height: 1.6;
+}
 
     .why {
       background: #eef5ff;
