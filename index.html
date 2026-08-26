@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sidhardha Mobile Repairing Service</title>
+
+  <meta name="description" content="Sidhardha Mobile Repairing Service - Fast, reliable and affordable mobile phone repair with home pickup and delivery.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #0b1220;
+      color: white;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 18px;
+      font-size: 14px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0b1220, #163b73);
+      color: white;
+      padding: 90px 6%;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      color: #9fd3ff;
+      font-weight: bold;
+      margin-bottom: 28px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #1683ff;
+      color: white;
+    }
+
+    .secondary {
+      background: white;
+      color: #0b1220;
+    }
+
+    section {
+      padding: 65px 6%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-title h2 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #687386;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #687386;
+      font-size: 14px;
+    }
+
+    .why {
+      background: #eef5ff;
+      max-width: none;
+    }
+
+    .why-inner {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .why-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .why-item {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .offer {
+      background: #fff;
+      border: 2px solid #1683ff;
+      text-align: center;
+    }
+
+    .contact {
+      background: #0b1220;
+      color: white;
+      max-width: none;
+    }
+
+    .contact-inner {
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .contact p {
+      margin: 10px 0;
+      color: #d5deed;
+    }
+
+    footer {
+      background: #070c15;
+      color: #9aa8bc;
+      text-align: center;
+      padding: 25px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav a {
+        margin: 0 7px;
+      }
+
+      .hero {
+        padding: 65px 5%;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">Sidhardha Mobile Repairing Service</div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#offers">Offers</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero" id="home">
+      <h1>Sidhardha Mobile Repairing Service</h1>
+
+      <p>Fast • Reliable • Affordable</p>
+
+      <div class="tagline">
+        Home Pickup & Delivery Available
+      </div>
+
+      <div class="buttons">
+        <a class="btn primary" href="#request">Request Repair</a>
+        <a class="btn secondary" href="#contact">Contact Us</a>
+      </div>
+    </section>
+
+    <section id="services">
+
+      <div class="section-title">
+        <h2>Our Repair Services</h2>
+        <p>Professional solutions for common mobile phone problems.</p>
+      </div>
+
+      <div class="services">
+
+        <div class="card">
+          <h3>Display Replacement</h3>
+          <p>Screen and display replacement for damaged or broken phones.</p>
+        </div>
+
+        <div class="card">
+          <h3>Battery Replacement</h3>
+          <p>Battery replacement for phones with poor battery performance.</p>
+        </div>
+
+        <div class="card">
+          <h3>Charging Port Repair</h3>
+          <p>Solutions for charging and connectivity problems.</p>
+        </div>
+
+        <div class="card">
+          <h3>Camera Repair</h3>
+          <p>Camera-related hardware and performance issues.</p>
+        </div>
+
+        <div class="card">
+          <h3>Speaker & Microphone</h3>
+          <p>Repair for audio, speaker and microphone problems.</p>
+        </div>
+
+        <div class="card">
+          <h3>Software Issues</h3>
+          <p>Help with software problems, errors and performance issues.</p>
+        </div>
+
+        <div class="card">
+          <h3>Motherboard / IC Repair</h3>
+          <p>Advanced repair services for motherboard and IC problems.</p>
+        </div>
+
+        <div class="card">
+          <h3>Other Mobile Repairs</h3>
+          <p>Contact us to discuss other mobile phone repair requirements.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="why">
+      <section class="why-inner">
+
+        <div class="section-title">
+          <h2>Why Choose Us?</h2>
+          <p>Service designed around convenience and trust.</p>
+        </div>
+
+        <div class="why-list">
+          <div class="why-item">✓ Home Pickup & Delivery</div>
+          <div class="why-item">✓ Quality Parts</div>
+          <div class="why-item">✓ Transparent Pricing</div>
+          <div class="why-item">✓ Warranty on Selected Repairs</div>
+          <div class="why-item">✓ Fast Service</div>
+        </div>
+
+      </section>
+    </div>
+
+    <section id="offers">
+
+      <div class="section-title">
+        <h2>Special Offers</h2>
+        <p>Ask us about our latest repair and accessory offers.</p>
+      </div>
+
+      <div class="services">
+
+        <div class="card offer">
+          <h3>Repair Offers</h3>
+          <p>Special offers may be available on selected repairs.</p>
+        </div>
+
+        <div class="card offer">
+          <h3>Screen / Display Offers</h3>
+          <p>Ask about current display replacement offers.</p>
+        </div>
+
+        <div class="card offer">
+          <h3>Screen Guard & Covers</h3>
+          <p>Ask about available screen guards and mobile covers.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="request">
+
+      <div class="section-title">
+        <h2>Request a Repair</h2>
+        <p>Contact us to arrange your mobile repair service.</p>
+      </div>
+
+      <div class="buttons">
+        <a class="btn primary" href="#contact">Request Home Pickup</a>
+      </div>
+
+    </section>
+
+    <div class="contact" id="contact">
+
+      <section class="contact-inner">
+
+        <div class="section-title">
+          <h2>Contact Sidhardha Mobile Repairing Service</h2>
+          <p>We're ready to help with your mobile repair.</p>
+        </div>
+
+        <p>📞 Phone: YOUR_PHONE_NUMBER</p>
+        <p>💬 WhatsApp: YOUR_WHATSAPP_NUMBER</p>
+        <p>📍 Service Area: YOUR_SERVICE_AREA</p>
+
+        <div class="buttons" style="margin-top:25px;">
+          <a class="btn primary" href="tel:YOUR_PHONE_NUMBER">Call Now</a>
+          <a class="btn secondary" href="https://wa.me/YOUR_WHATSAPP_NUMBER">WhatsApp</a>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer>
+    © 2026 Sidhardha Mobile Repairing Service. All rights reserved.
+  </footer>
+
+</body>
+  </html>
