@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Customer Dashboard</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080b10;
+    color: #ffffff;
+}
+
+.header {
+    background: #111820;
+    border-bottom: 1px solid #293646;
+    padding: 18px 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 12px;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 23px;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+button,
+a {
+    font-family: inherit;
+}
+
+.refresh-btn,
+.logout-btn,
+.repair-btn,
+.back-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 11px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.refresh-btn {
+    background: #1976d2;
+    color: white;
+}
+
+.logout-btn {
+    background: #d32f2f;
+    color: white;
+}
+
+.container {
+    max-width: 1050px;
+    margin: auto;
+    padding: 22px 18px 50px;
+}
+
+.profile {
+    background: #111820;
+    border: 1px solid #293646;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+}
+
+.profile-email {
+    color: #9da8b4;
+    word-break: break-word;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.stat {
+    background: #111820;
+    border: 1px solid #293646;
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 29px;
+    font-weight: bold;
+}
+
+.stat-title {
+    margin-top: 5px;
+    color: #9da8b4;
+}
+
+.section-title {
+    font-size: 21px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.booking {
+    background: #111820;
+    border: 1px solid #293646;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 18px;
+}
+
+.booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.booking-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.booking-date {
+    margin-top: 5px;
+    color: #9da8b4;
+    font-size: 13px;
+}
+
+.booking-id {
+    margin-top: 4px;
+    color: #687789;
+    font-size: 11px;
+    word-break: break-all;
+}
+
+.status {
+    padding: 9px 13px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.status-pending {
+    background: #493b12;
+    color: #ffd666;
+}
+
+.status-confirmed {
+    background: #123d5c;
+    color: #70c7ff;
+}
+
+.status-in-repair {
+    background: #4a2b08;
+    color: #ffb454;
+}
+
+.status-completed {
+    background: #123d20;
+    color: #7ee787;
+}
+
+.status-cancelled {
+    background: #49171a;
+    color: #ff8b88;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.detail {
+    background: #0c1117;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.detail-label {
+    color: #8995a3;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.detail-value {
+    font-size: 15px;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.status-info {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid #293646;
+}
+
+.status-info-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.status-message {
+    color: #a9b7c8;
+    font-size: 14px;
+}
+
+.loading,
+.empty,
+.error {
+    background: #111820;
+    border: 1px solid #293646;
+    border-radius: 14px;
+    padding: 35px 18px;
+    text-align: center;
+}
+
+.empty {
+    color: #9da8b4;
+}
+
+.error {
+    color: #ff8b88;
+    line-height: 1.5;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.repair-btn {
+    background: #238636;
+    color: white;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: #293646;
+    color: white;
+}
+
+.message {
+    display: none;
+    margin-bottom: 18px;
+    padding: 13px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.message.error {
+    display: block;
+    background: #3b1616;
+    border: 1px solid #da3633;
+    color: #ff8b88;
+}
+
+@media (max-width: 700px) {
+
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .header h1 {
+        text-align: center;
+    }
+
+    .header-buttons {
+        justify-content: center;
+    }
+
+    .refresh-btn,
+    .logout-btn {
+        flex: 1;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .details {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-header {
+        flex-direction: column;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header class="header">
+
+    <h1>
+        👤 Customer Dashboard
+    </h1>
+
+    <div class="header-buttons">
+
+        <button
+            type="button"
+            class="refresh-btn"
+            id="refreshBtn"
+        >
+            🔄 Refresh
+        </button>
+
+        <button
+            type="button"
+            class="logout-btn"
+            id="logoutBtn"
+        >
+            🚪 Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+
+    <div class="profile">
+
+        <h2>
+            Welcome 👋
+        </h2>
+
+        <div
+            class="profile-email"
+            id="customerEmail"
+        >
+            Loading account...
+        </div>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="totalCount"
+            >
+                0
+            </div>
+
+            <div class="stat-title">
+                My Bookings
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="activeCount"
+            >
+                0
+            </div>
+
+            <div class="stat-title">
+                Active
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                class="stat-number"
+                id="completedCount"
+            >
+                0
+            </div>
+
+            <div class="stat-title">
+                Completed
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-title">
+        📱 My Repair Bookings
+    </div>
+
+
+    <div id="bookings">
+
+        <div class="loading">
+            Loading your bookings...
+        </div>
+
+    </div>
+
+
+    <div class="actions">
+
+        <div>
+
+            <a
+                href="Repair.html"
+                class="repair-btn"
+            >
+                📱 Book a New Repair
+            </a>
+
+            <br>
+
+            <a
+                href="index.html"
+                class="back-btn"
+            >
+                ← Back to Website
+            </a>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+    "https://gilrmxkflutzbeqlileg.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_cpTh0lXY5b1sVO-JV8hreg_y43eJ7HX";
+
+
+/* =====================================================
+   LOGIN SESSION
+===================================================== */
+
+const accessToken =
+    localStorage.getItem(
+        "supabase_access_token"
+    );
+
+const userRole =
+    localStorage.getItem(
+        "user_role"
+    );
+
+const savedEmail =
+    localStorage.getItem(
+        "user_email"
+    );
+
+const savedUserId =
+    localStorage.getItem(
+        "user_id"
+    );
+
+
+/* =====================================================
+   SECURITY CHECK
+===================================================== */
+
+if (
+    !accessToken ||
+    userRole !== "customer"
+) {
+
+    window.location.href =
+        "Login.html";
+
+}
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const bookingsContainer =
+    document.getElementById(
+        "bookings"
+    );
+
+const refreshBtn =
+    document.getElementById(
+        "refreshBtn"
+    );
+
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
+
+const customerEmail =
+    document.getElementById(
+        "customerEmail"
+    );
+
+const totalCount =
+    document.getElementById(
+        "totalCount"
+    );
+
+const activeCount =
+    document.getElementById(
+        "activeCount"
+    );
+
+const completedCount =
+    document.getElementById(
+        "completedCount"
+    );
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+/* =====================================================
+   SHOW ACCOUNT
+===================================================== */
+
+customerEmail.textContent =
+    savedEmail ||
+    "Customer account";
+
+
+/* =====================================================
+   HEADERS
+===================================================== */
+
+function getHeaders() {
+
+    return {
+
+        "Content-Type":
+            "application/json",
+
+        "apikey":
+            SUPABASE_KEY,
+
+        "Authorization":
+            "Bearer " + accessToken,
+
+        "Prefer":
+            "return=representation"
+
+    };
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "—";
+
+    }
+
+    return String(value)
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   NORMALIZE STATUS
+===================================================== */
+
+function normalizeStatus(status) {
+
+    const value =
+        String(
+            status ||
+            "pending"
+        )
+        .toLowerCase()
+        .trim();
+
+
+    if (
+        value === "in repair" ||
+        value === "repair"
+    ) {
+
+        return "in_repair";
+
+    }
+
+
+    if (
+        value === "complete"
+    ) {
+
+        return "completed";
+
+    }
+
+
+    if (
+        value === "canceled"
+    ) {
+
+        return "cancelled";
+
+    }
+
+
+    return value;
+
+}
+
+
+/* =====================================================
+   DISPLAY STATUS
+===================================================== */
+
+function displayStatus(status) {
+
+    const value =
+        normalizeStatus(status);
+
+
+    if (
+        value === "confirmed"
+    ) {
+
+        return "Confirmed";
+
+    }
+
+
+    if (
+        value === "in_repair"
+    ) {
+
+        return "In Repair";
+
+    }
+
+
+    if (
+        value === "completed"
+    ) {
+
+        return "Completed";
+
+    }
+
+
+    if (
+        value === "cancelled"
+    ) {
+
+        return "Cancelled";
+
+    }
+
+
+    return "Pending";
+
+}
+
+
+/* =====================================================
+   STATUS CLASS
+===================================================== */
+
+function statusClass(status) {
+
+    const value =
+        normalizeStatus(status);
+
+
+    if (
+        value === "confirmed"
+    ) {
+
+        return "status-confirmed";
+
+    }
+
+
+    if (
+        value === "in_repair"
+    ) {
+
+        return "status-in-repair";
+
+    }
+
+
+    if (
+        value === "completed"
+    ) {
+
+        return "status-completed";
+
+    }
+
+
+    if (
+        value === "cancelled"
+    ) {
+
+        return "status-cancelled";
+
+    }
+
+
+    return "status-pending";
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function formatDate(value) {
+
+    if (!value) {
+
+        return "Date not available";
+
+    }
+
+    try {
+
+        const date =
+            new Date(value);
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return value;
+
+        }
+
+
+        return date.toLocaleString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
+
+    } catch (error) {
+
+        return value;
+
+    }
+
+}
+
+
+/* =====================================================
+   STATUS MESSAGE
+===================================================== */
+
+function statusMessage(status) {
+
+    const value =
+        normalizeStatus(status);
+
+
+    if (
+        value === "confirmed"
+    ) {
+
+        return "Your repair request has been confirmed by the owner.";
+
+    }
+
+
+    if (
+        value === "in_repair"
+    ) {
+
+        return "Your phone is currently being repaired.";
+
+    }
+
+
+    if (
+        value === "completed"
+    ) {
+
+        return "Your repair has been completed.";
+
+    }
+
+
+    if (
+        value === "cancelled"
+    ) {
+
+        return "This repair request has been cancelled. Please contact us if you need help.";
+
+    }
+
+
+    return "Your repair request has been received and is waiting for confirmation.";
+
+}
+
+
+/* =====================================================
+   SHOW ERROR
+===================================================== */
+
+function showError(text) {
+
+    message.className =
+        "message error";
+
+    message.textContent =
+        "❌ " + text;
+
+}
+
+
+/* =====================================================
+   CLEAR ERROR
+===================================================== */
+
+function clearError() {
+
+    message.className =
+        "message";
+
+    message.textContent =
+        "";
+
+}
+
+
+/* =====================================================
+   LOAD BOOKINGS
+===================================================== */
+
+async function loadBookings() {
+
+    clearError();
+
+
+    bookingsContainer.innerHTML =
+        `
+        <div class="loading">
+            Loading your bookings...
+        </div>
+        `;
+
+
+    try {
+
+        const response =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/repair_requests?select=*&order=created_at.desc",
+                {
+                    method: "GET",
+                    headers:
+                        getHeaders()
+                }
+            );
+
+
+        const text =
+            await response.text();
+
+
+        let data = [];
+
+
+        try {
+
+            data =
+                text
+                    ? JSON.parse(text)
+                    : [];
+
+        } catch (error) {
+
+            throw new Error(
+                "Invalid response from Supabase."
+            );
+
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data?.message ||
+                data?.hint ||
+                text ||
+                "Unable to load bookings."
+            );
+
+        }
+
+
+        if (!Array.isArray(data)) {
+
+            throw new Error(
+                "Unexpected booking response."
+            );
+
+        }
+
+
+        /*
+         * CURRENT DATABASE STRUCTURE
+         *
+         * Repair.html currently stores:
+         *
+         * customer_name
+         * customer_phone
+         * mobile_model
+         * repair_service
+         * repair_problem
+         * customer_location
+         * pickup
+         * additional_message
+         *
+         * It does NOT currently store user_id.
+         *
+         * Therefore this page first tries to match
+         * the logged-in account using fields that may
+         * be available in the booking.
+         */
+
+        const filtered =
+            filterCustomerBookings(
+                data
+            );
+
+
+        renderBookings(
+            filtered
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "CUSTOMER BOOKINGS ERROR:",
+            error
+        );
+
+
+        bookingsContainer.innerHTML =
+            `
+            <div class="error">
+
+                ❌ Unable to load your bookings.
+
+                <br><br>
+
+                ${escapeHtml(
+                    error.message
+                )}
+
+            </div>
+            `;
+
+
+        totalCount.textContent =
+            "0";
+
+        activeCount.textContent =
+            "0";
+
+        completedCount.textContent =
+            "0";
+
+    }
+
+}
+
+
+/* =====================================================
+   FILTER CUSTOMER BOOKINGS
+===================================================== */
+
+function filterCustomerBookings(
+    bookings
+) {
+
+    /*
+     * If future Repair.html adds user_id,
+     * this will use it automatically.
+     */
+
+    if (savedUserId) {
+
+        const userIdMatches =
+            bookings.filter(
+                function (booking) {
+
+                    return (
+                        booking.user_id ===
+                        savedUserId
+                    );
+
+                }
+            );
+
+
+        if (
+            userIdMatches.length > 0
+        ) {
+
+            return userIdMatches;
+
+        }
+
+    }
+
+
+    /*
+     * Fallback to email if the database
+     * later contains customer_email.
+     */
+
+    if (savedEmail) {
+
+        const emailMatches =
+            bookings.filter(
+                function (booking) {
+
+                    return (
+                        booking.customer_email &&
+                        String(
+                            booking.customer_email
+                        ).toLowerCase() ===
+                        String(
+                            savedEmail
+                        ).toLowerCase()
+                    );
+
+                }
+            );
+
+
+        if (
+            emailMatches.length > 0
+        ) {
+
+            return emailMatches;
+
+        }
+
+    }
+
+
+    /*
+     * IMPORTANT:
+     *
+     * Current Repair.html does not save
+     * user_id or customer_email.
+     *
+     * Therefore we cannot safely identify
+     * a customer's bookings by account yet.
+     *
+     * Return an empty list instead of
+     * accidentally showing another customer's
+     * private booking.
+     */
+
+    return [];
+
+}
+
+
+/* =====================================================
+   UPDATE COUNTERS
+===================================================== */
+
+function updateCounters(
+    bookings
+) {
+
+    totalCount.textContent =
+        bookings.length;
+
+
+    let active = 0;
+
+    let completed = 0;
+
+
+    bookings.forEach(
+        function (booking) {
+
+            const status =
+                normalizeStatus(
+                    booking.status
+                );
+
+
+            if (
+                status === "pending" ||
+                status === "confirmed" ||
+                status === "in_repair"
+            ) {
+
+                active++;
+
+            }
+
+
+            if (
+                status === "completed"
+            ) {
+
+                completed++;
+
+            }
+
+        }
+    );
+
+
+    activeCount.textContent =
+        active;
+
+    completedCount.textContent =
+        completed;
+
+}
+
+
+/* =====================================================
+   RENDER BOOKINGS
+===================================================== */
+
+function renderBookings(
+    bookings
+) {
+
+    updateCounters(
+        bookings
+    );
+
+
+    if (
+        bookings.length === 0
+    ) {
+
+        bookingsContainer.innerHTML =
+            `
+            <div class="empty">
+
+                📭 No bookings are linked
+                to this customer account yet.
+
+                <br><br>
+
+                Once your booking is connected
+                to your customer account,
+                it will appear here.
+
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    bookingsContainer.innerHTML =
+        bookings
+            .map(
+                function (booking) {
+
+                    return createBooking(
+                        booking
+                    );
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* =====================================================
+   CREATE BOOKING
+==============================
