@@ -466,16 +466,14 @@
 
         } catch (error) {
 
-          console.error(error);
+    console.error("SUPABASE ERROR:", error);
 
-          message.className =
-            "error";
+    message.className = "error";
 
-          message.textContent =
-            "❌ Something went wrong. Please try again.";
+    message.textContent =
+        "❌ " + error.message;
 
-          message.style.display =
-            "block";
+    message.style.display = "block";
         }
 
 
