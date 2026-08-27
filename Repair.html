@@ -378,28 +378,29 @@
         const formData = new FormData(form);
 
         const repairRequest = {
+    customer_name:
+        formData.get("customer_name"),
 
-          customer_name:
-            formData.get("customer_name"),
+    customer_phone:
+        formData.get("customer_phone"),
 
-          customer_phone:
-            formData.get("customer_phone"),
+    mobile_model:
+        formData.get("mobile_model"),
 
-          mobile_model:
-            formData.get("mobile_model"),
+    repair_service:
+        formData.get("repair_problem"),
 
-          repair_problem:
-            formData.get("repair_problem"),
+    repair_problem:
+        formData.get("repair_problem"),
 
-          customer_location:
-            formData.get("customer_location"),
+    pickup:
+    formData.get("pickup"),
 
-          pickup:
-            formData.get("pickup"),
+additional_message:
+    formData.get("additional_message")
+    
+};
 
-          additional_message:
-            formData.get("additional_message") || ""
-        };
 
 
         try {
