@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Owner Dashboard</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #080b10;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+    padding: 20px;
+    background: #111820;
+    border-bottom: 1px solid #293646;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.logout-btn,
+.refresh-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 11px 15px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.logout-btn {
+    background: #d32f2f;
+}
+
+.refresh-btn {
+    background: #1976d2;
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: #111820;
+    border: 1px solid #293646;
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.stat-title {
+    color: #9da8b4;
+    margin-top: 5px;
+}
+
+.booking {
+    background: #111820;
+    border: 1px solid #293646;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 18px;
+}
+
+.booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.booking-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.booking-date {
+    color: #9da8b4;
+    font-size: 13px;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.detail {
+    background: #0c1117;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.detail-label {
+    color: #8995a3;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.detail-value {
+    font-size: 15px;
+    word-break: break-word;
+}
+
+.status-area {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid #293646;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.status-label {
+    font-weight: bold;
+}
+
+.status-select {
+    flex: 1;
+    max-width: 300px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #3b4a5c;
+    background: #0c1117;
+    color: white;
+    font-size: 15px;
+}
+
+.status-btn {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    background: #238636;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.status-btn:disabled {
+    opacity: 0.5;
+}
+
+.loading,
+.empty,
+.error {
+    text-align: center;
+    padding: 35px 15px;
+    border-radius: 14px;
+    background: #111820;
+    border: 1px solid #293646;
+}
+
+.error {
+    color: #ff8b88;
+}
+
+.success-message {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #123d20;
+    border: 1px solid #2ea043;
+    color: #7ee787;
+    padding: 14px 20px;
+    border-radius: 12px;
+    z-index: 1000;
+}
+
+@media (max-width: 700px) {
+
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .header h1 {
+        text-align: center;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .details {
+        grid-template-columns: 1fr;
+    }
+
+    .status-area {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .status-select {
+        max-width: none;
+        width: 100%;
+    }
+
+    .status-btn {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1>👑 Owner Dashboard</h1>
+
+    <div>
+        <button
+            class="refresh-btn"
+            id="refreshBtn"
+        >
+            🔄 Refresh
+        </button>
+
+        <button
+            class="logout-btn"
+            id="logoutBtn"
+        >
+            🚪 Logout
+        </button>
+    </div>
+
+</div>
+
+
+<div class="container">
+
+    <div class="stats">
+
+        <div class="stat">
+            <div
+                class="stat-number"
+                id="totalCount"
+            >
+                0
+            </div>
+
+            <div class="stat-title">
+                Total
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div
+                class="stat-number"
+                id="pendingCount"
+            >
+                0
+            </div>
+
+            <div class="stat-title">
+                Pending
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div
+                class="stat-number"
+                id="repairCount"
+            >
+                0
+            </div>
+
+            <div class="stat-title">
+                In Repair
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div
+                class="stat-number"
+                id="completedCount"
+            >
+                0
+            </div>
+
+            <div class="stat-title">
+                Completed
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="bookings">
+
+        <div class="loading">
+            Loading bookings...
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    class="success-message"
+    id="successMessage"
+>
+    Status updated successfully!
+</div>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
+
+const SUPABASE_URL =
+    "https://gilrmxkflutzbeqlileg.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_cpTh0lXY5b1sVO-JV8hreg_y43eJ7HX";
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const bookingsContainer =
+    document.getElementById("bookings");
+
+const refresh
