@@ -1,629 +1,1310 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Sidhardha Mobile Repairing Service</title>
+<meta charset="UTF-8">
 
-  <meta name="description" content="Sidhardha Mobile Repairing Service - Fast, reliable and affordable mobile phone repair with home pickup and delivery.">
-   <meta property="og:title" content="Sidhardha Mobile Repairing Service">
-<meta property="og:description" content="Fast, reliable and affordable mobile phone repair service with home pickup and delivery.">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="en_IN">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    html {
-      scroll-behavior: smooth;
-    }
+<title>Sidhardha Mobile Repairing Service</title>
 
-    body {
-  font-family: Arial, sans-serif;
-  background: #050b14;
-  color: #eaf2ff;
-  line-height: 1.6;
-    }
+<meta
+    name="description"
+    content="Sidhardha Mobile Repairing Service - Fast, reliable and affordable mobile phone repair with home pickup and delivery."
+>
 
-    header {
-      background: #0b1220;
-      color: white;
-      padding: 18px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+<style>
 
-    .logo {
-      font-size: 20px;
-      font-weight: bold;
-    }
+/* =====================================================
+   BASIC RESET
+===================================================== */
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 18px;
-      font-size: 14px;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    .hero {
-  background: linear-gradient(135deg, #020617, #071a35, #0b2f5b);
-  color: white;
-  padding: 100px 6%;
-  text-align: center;
-  overflow: hidden;
-    }
-    .hero {
-  position: relative;
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #050b14;
+    color: #eaf2ff;
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+    background: #0b1220;
+    color: white;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.desktop-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.desktop-nav a:hover {
+    color: #64b5ff;
+}
+
+
+/* =====================================================
+   THREE DOT MENU
+===================================================== */
+
+.menu-wrapper {
+    position: relative;
+}
+
+.menu-button {
+    width: 46px;
+    height: 46px;
+
+    border: 1px solid #354456;
+    border-radius: 12px;
+
+    background: #111c2c;
+    color: white;
+
+    font-size: 28px;
+    line-height: 38px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s;
+}
+
+.menu-button:hover {
+    background: #1976d2;
+}
+
+.menu-button:active {
+    transform: scale(0.95);
+}
+
+.menu-dropdown {
+    position: absolute;
+
+    top: 55px;
+    right: 0;
+
+    width: 235px;
+
+    background: #111820;
+
+    border: 1px solid #354456;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.5);
+
+    padding: 8px;
+
+    display: none;
+}
+
+.menu-dropdown.show {
+    display: block;
+}
+
+.menu-dropdown a,
+.menu-dropdown button {
+    width: 100%;
+
+    display: block;
+
+    padding: 13px 14px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: white;
+
+    text-align: left;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    cursor: pointer;
+}
+
+.menu-dropdown a:hover,
+.menu-dropdown button:hover {
+    background: #1b2a3b;
+}
+
+.menu-divider {
+    height: 1px;
+    background: #293646;
+    margin: 7px 4px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #020617,
+            #071a35,
+            #0b2f5b
+        );
+
+    color: white;
+
+    padding: 100px 6%;
+
+    text-align: center;
+
+    overflow: hidden;
 }
 
 .hero::before {
-  content: "";
-  position: absolute;
-  width: 320px;
-  height: 320px;
-  top: -80px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 150, 255, 0.28);
-  border-radius: 50%;
-  filter: blur(80px);
-  animation: heroGlow 4s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
+    content: "";
+
+    position: absolute;
+
+    width: 320px;
+    height: 320px;
+
+    top: -80px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background:
+        rgba(0,150,255,0.28);
+
+    border-radius: 50%;
+
+    filter: blur(80px);
+
+    animation:
+        heroGlow 4s ease-in-out infinite alternate;
+
+    pointer-events: none;
 }
+
 @keyframes heroGlow {
-  from {
-    opacity: 0.35;
-    transform: translateX(-50%) scale(0.9);
-  }
 
-  to {
-    opacity: 0.8;
-    transform: translateX(-50%) scale(1.15);
-  }
+    from {
+        opacity: 0.35;
+        transform:
+            translateX(-50%)
+            scale(0.9);
+    }
+
+    to {
+        opacity: 0.8;
+        transform:
+            translateX(-50%)
+            scale(1.15);
+    }
+
 }
 
-    .hero h1 {
-  font-size: 42px;
-  margin-bottom: 15px;
-  animation: heroTitle 1s ease-out;
-    }
-    @keyframes heroTitle {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-    }
-.hero p {
-  font-size: 20px;
-  margin-bottom: 10px;
-  animation: heroText 1.2s ease-out 0.6s both;
+.hero h1 {
+    position: relative;
+
+    font-size: 42px;
+
+    margin-bottom: 15px;
+
+    animation:
+        heroTitle 1s ease-out;
 }
 
-@keyframes heroText {
+@keyframes heroTitle {
+
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(25px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
+
 }
 
-    .tagline {
-      color: #9fd3ff;
-      font-weight: bold;
-      margin-bottom: 28px;
-      animation: taglineFade 1.2s ease-out 1s both;
-    }
-    @keyframes taglineFade {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
+.hero p {
+    position: relative;
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-    }
+    font-size: 20px;
 
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-     .buttons {
-  animation: buttonsFade 1.2s ease-out 1.4s both;
+    margin-bottom: 10px;
 }
 
-@keyframes buttonsFade {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
+.tagline {
+    position: relative;
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    color: #9fd3ff;
+
+    font-weight: bold;
+
+    margin-bottom: 28px;
 }
-    }
 
-    .btn {
-      display: inline-block;
-      padding: 13px 22px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
 
-    .primary {
-      background: #1683ff;
-      color: white;
-    }
+/* =====================================================
+   BUTTONS
+===================================================== */
 
-    .secondary {
-      background: white;
-      color: #0b1220;
-    }
+.buttons {
+    display: flex;
 
-    section {
-  padding: 65px 6%;
-  max-width: 1200px;
-  margin: auto;
-  background: #07111f;
-  color: white;
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
 }
-    #services {   background: #07111f;   color: white; }
-    .card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  display: block;
-  border-radius: 12px;
-  margin-bottom: 15px;
-    }
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 35px;
-    }
+.btn {
+    display: inline-block;
 
-    .section-title h2 {
-  font-size: 30px;
-  margin-bottom: 8px;
-  color: white;
+    padding: 13px 22px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    border: none;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+.primary {
+    background: #1683ff;
+    color: white;
+}
+
+.secondary {
+    background: white;
+    color: #0b1220;
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+section {
+    padding: 65px 6%;
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    background: #07111f;
+
+    color: white;
+}
+
+.section-title {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    font-size: 30px;
+
+    margin-bottom: 8px;
+
+    color: white;
 }
 
 .section-title p {
-  color: #a9b7c8;
+    color: #a9b7c8;
 }
 
-    .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    }
 
-    .card {
-  background: #0d1b2a;
-  padding: 25px;
-  border-radius: 16px;
-  border: 1px solid rgba(100, 180, 255, 0.12);
-  box-shadow: 0 5px 20px rgba(0,0,0,0.25);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+/* =====================================================
+   SERVICES
+===================================================== */
+
+#services {
+    background: #07111f;
+}
+
+.services {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px, 1fr)
+        );
+
+    gap: 18px;
+}
+
+.card {
+    display: block;
+
+    background: #0d1b2a;
+
+    padding: 25px;
+
+    border-radius: 16px;
+
+    border:
+        1px solid
+        rgba(100,180,255,0.12);
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,0.25);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+
+    text-decoration: none;
+
+    color: white;
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 35px rgba(0, 150, 255, 0.22);
-  border-color: rgba(100, 180, 255, 0.35);
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,150,255,0.22);
+
+    border-color:
+        rgba(100,180,255,0.35);
 }
-    .card h3 {
-  margin-bottom: 8px;
-  color: #ffffff;
-  font-size: 20px;
+
+.card img {
+    width: 100%;
+
+    height: 180px;
+
+    object-fit: cover;
+
+    display: block;
+
+    border-radius: 12px;
+
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    margin-bottom: 8px;
+
+    color: #ffffff;
+
+    font-size: 20px;
 }
 
 .card p {
-  color: #a9b7c8;
-  font-size: 14px;
-  line-height: 1.6;
+    color: #a9b7c8;
+
+    font-size: 14px;
+
+    line-height: 1.6;
 }
 
-    .why {
+
+/* =====================================================
+   WHY CHOOSE US
+===================================================== */
+
+.why {
     background: #07111f;
+
     max-width: none;
+}
+
+.why-inner {
+    max-width: 1200px;
+
+    margin: auto;
+}
+
+.why-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px, 1fr)
+        );
+
+    gap: 15px;
+}
+
+.why-item {
+    background: white;
+
+    color: #0b1220;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   OFFERS
+===================================================== */
+
+.offer {
+    background: #ffffff;
+
+    border: 2px solid #1683ff;
+
+    text-align: center;
+
+    color: #0b1220;
+}
+
+.offer h3 {
+    color: #0b1220;
+}
+
+.offer p {
+    color: #475569;
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.contact {
+    background: #0b1220;
+
+    color: white;
+
+    max-width: none;
+}
+
+.contact-inner {
+    max-width: 900px;
+
+    margin: auto;
+
+    text-align: center;
+}
+
+.contact p {
+    margin: 10px 0;
+
+    color: #d5deed;
+}
+
+
+/* =====================================================
+   FAQ
+===================================================== */
+
+#faq {
+    background: #07111f;
+}
+
+#faq .card {
+    margin-bottom: 15px;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    background: #070c15;
+
+    color: #9aa8bc;
+
+    text-align: center;
+
+    padding: 25px;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    header {
+        padding: 12px 4%;
     }
 
-    .why-inner {
-      max-width: 1200px;
-      margin: auto;
+    .logo {
+        font-size: 16px;
+        max-width: 260px;
     }
 
-    .why-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
+    .desktop-nav {
+        display: none;
     }
 
-    .why-item {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      font-weight: bold;
-    }
-
-    .offer {
-      background: #fff;
-      border: 2px solid #1683ff;
-      text-align: center;
-    }
-
-    .contact {
-      background: #0b1220;
-      color: white;
-      max-width: none;
-    }
-
-    .contact-inner {
-      max-width: 900px;
-      margin: auto;
-      text-align: center;
-    }
-
-    .contact p {
-      margin: 10px 0;
-      color: #d5deed;
-    }
-
-    footer {
-      background: #070c15;
-      color: #9aa8bc;
-      text-align: center;
-      padding: 25px;
-      font-size: 13px;
-    }
-
-    @media (max-width: 700px) {
-      header {
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      nav a {
-        margin: 0 7px;
-      }
-
-      .hero {
+    .hero {
         padding: 65px 5%;
-      }
-
-      .hero h1 {
-        font-size: 32px;
-      }
-
-      .hero p {
-        font-size: 17px;
-      }
     }
-@media (max-width: 900px) {
-  form {
-    width: 100%;
-    max-width: 100%;
-  }
 
-  form label {
-    display: block !important;
-    width: 100%;
-    margin: 14px 0 6px;
-  }
+    .hero h1 {
+        font-size: 32px;
+    }
 
-  form input,
-  form textarea,
-  form select {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0;
-    box-sizing: border-box;
-    margin: 0 0 12px;
-  }
+    .hero p {
+        font-size: 17px;
+    }
 
-  form textarea {
-    min-height: 110px;
-  }
+    .menu-button {
+        width: 44px;
+        height: 44px;
+    }
 
-  form button {
-    display: block;
-    width: 100%;
-    margin-top: 15px;
-  }
-}
-    .btn:active {
-  transform: scale(0.96);
-  box-shadow: 0 0 10px red, 0 0 25px red, 0 0 45px red;
+    .menu-dropdown {
+        width: 220px;
+    }
+
 }
 
-.btn.primary {
-  transition: 0.2s ease;
-}
-  </style>
+</style>
+
 </head>
+
 
 <body>
 
-  <header>
-    <div class="logo">Sidhardha Mobile Repairing Service</div>
 
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#offers">Offers</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-  <main>
+<header>
 
-    <section class="hero" id="home">
-      <h1>Sidhardha Mobile Repairing Service</h1>
-
-      <p>Fast • Reliable • Affordable</p>
-
-      <div class="tagline">
-        Home Pickup & Delivery Available
-      </div>
-
-      <div class="buttons">
-        <a href="Repair.html" class="btn primary">📱 Book a Repair</a>
-        <a class="btn secondary" href="#contact">Contact Us</a>
-      </div>
-    </section>
-
-    <section id="services">
-
-      <div class="section-title">
-        <h2>Our Repair Services</h2>
-        <p>Professional solutions for common mobile phone problems.</p>
-      </div>
-
-      <div class="services">
-
-        <a href="Repair.html?service=Display%20Replacement" class="card">
-    <img src="display-repair.png" alt="Display Replacement">
-    <h3>Display Replacement</h3>
-    <p>Screen and display replacement for damaged or broken phones.</p>
-</a>
-
-        <a href="Repair.html?service=Battery%20Replacement" class="card">
-    <h3>Battery Replacement</h3>
-    <p>Battery replacement for phones with poor battery performance.</p>
-</a>
-
-        <a href="Repair.html?service=Charging%20Port%20Repair" class="card">
-    <h3>Charging Port Repair</h3>
-    <p>Solutions for charging and connectivity problems.</p>
-        </a>
-
-        <a href="Repair.html?service=Camera%20Repair" class="card">
-    <h3>Camera Repair</h3>
-    <p>Camera-related hardware and performance issues.</p>
-</a>
-
-        <a href="Repair.html?service=Speaker%20%26%20Microphone" class="card">
-    <h3>Speaker & Microphone</h3>
-    <p>Repair for audio, speaker and microphone problems.</p>
-        </a>
-
-        <a href="Repair.html?service=Software%20Issues" class="card">
-    <h3>Software Issues</h3>
-    <p>Software, update, reset and performance-related problems.</p>
-        </a>
-
-        <a href="Repair.html?service=Motherboard%20%2F%20IC%20Repair" class="card">
-    <h3>Motherboard / IC Repair</h3>
-    <p>Advanced motherboard and IC-level repair services.</p>
-        </a>
-
-        <a href="Repair.html?service=Other%20Mobile%20Repairs" class="card">
-    <h3>Other Mobile Repairs</h3>
-    <p>Other mobile repair services based on your phone's needs.</p>
-        </a>
-
-      </div>
-    </section>
-
-    <div class="why">
-      <section class="why-inner">
-
-        <div class="section-title">
-          <h2>Why Choose Us?</h2>
-          <p>Service designed around convenience and trust.</p>
-        </div>
-
-        <div class="why-list">
-          <div class="why-item">✓ Home Pickup & Delivery</div>
-          <div class="why-item">✓ Quality Parts</div>
-          <div class="why-item">✓ Transparent Pricing</div>
-          <div class="why-item">✓ Warranty on Selected Repairs</div>
-          <div class="why-item">✓ Fast Service</div>
-        </div>
-
-      </section>
+    <div class="logo">
+        Sidhardha Mobile Repairing Service
     </div>
 
-    <section id="offers">
 
-      <div class="section-title">
-        <h2>Special Offers</h2>
-        <p>Ask us about our latest repair and accessory offers.</p>
-      </div>
+    <nav class="desktop-nav">
 
-      <div class="services">
+        <a href="#home">
+            Home
+        </a>
 
-        <div class="card offer">
-          <h3>Repair Offers</h3>
-          <p>Special offers may be available on selected repairs.</p>
+        <a href="#services">
+            Services
+        </a>
+
+        <a href="#offers">
+            Offers
+        </a>
+
+        <a href="#contact">
+            Contact
+        </a>
+
+    </nav>
+
+
+    <!-- THREE DOTS -->
+
+    <div class="menu-wrapper">
+
+        <button
+            type="button"
+            class="menu-button"
+            id="menuButton"
+            aria-label="Open menu"
+            aria-expanded="false"
+        >
+            ⋮
+        </button>
+
+
+        <div
+            class="menu-dropdown"
+            id="menuDropdown"
+        >
+
+            <a href="Login.html">
+                🔐 Login
+            </a>
+
+
+            <a href="Customer.html">
+                👤 Customer Dashboard
+            </a>
+
+
+            <a href="Owner.html">
+                👑 Owner Dashboard
+            </a>
+
+
+            <div class="menu-divider"></div>
+
+
+            <a href="Repair.html">
+                📱 Book a Repair
+            </a>
+
+
+            <a href="#services">
+                🔧 Repair Services
+            </a>
+
+
+            <a href="#offers">
+                🎁 Offers
+            </a>
+
+
+            <a href="#contact">
+                📞 Contact Us
+            </a>
+
+
+            <div class="menu-divider"></div>
+
+
+            <button
+                type="button"
+                id="logoutButton"
+            >
+                🚪 Logout
+            </button>
+
         </div>
 
-        <div class="card offer">
-          <h3>Screen / Display Offers</h3>
-          <p>Ask about current display replacement offers.</p>
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+<!-- HERO -->
+
+<section
+    class="hero"
+    id="home"
+>
+
+    <h1>
+        Sidhardha Mobile Repairing Service
+    </h1>
+
+
+    <p>
+        Fast • Reliable • Affordable
+    </p>
+
+
+    <div class="tagline">
+        Home Pickup & Delivery Available
+    </div>
+
+
+    <div class="buttons">
+
+        <a
+            href="Repair.html"
+            class="btn primary"
+        >
+            📱 Book a Repair
+        </a>
+
+
+        <a
+            class="btn secondary"
+            href="#contact"
+        >
+            Contact Us
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SERVICES
+===================================================== -->
+
+<section id="services">
+
+    <div class="section-title">
+
+        <h2>
+            Our Repair Services
+        </h2>
+
+        <p>
+            Professional solutions for common mobile phone problems.
+        </p>
+
+    </div>
+
+
+    <div class="services">
+
+
+        <a
+            href="Repair.html?service=Display%20Replacement"
+            class="card"
+        >
+
+            <img
+                src="display-repair.png"
+                alt="Display Replacement"
+            >
+
+            <h3>
+                Display Replacement
+            </h3>
+
+            <p>
+                Screen and display replacement
+                for damaged or broken phones.
+            </p>
+
+        </a>
+
+
+        <a
+            href="Repair.html?service=Battery%20Replacement"
+            class="card"
+        >
+
+            <h3>
+                Battery Replacement
+            </h3>
+
+            <p>
+                Battery replacement for phones
+                with poor battery performance.
+            </p>
+
+        </a>
+
+
+        <a
+            href="Repair.html?service=Charging%20Port%20Repair"
+            class="card"
+        >
+
+            <h3>
+                Charging Port Repair
+            </h3>
+
+            <p>
+                Solutions for charging and
+                connectivity problems.
+            </p>
+
+        </a>
+
+
+        <a
+            href="Repair.html?service=Camera%20Repair"
+            class="card"
+        >
+
+            <h3>
+                Camera Repair
+            </h3>
+
+            <p>
+                Camera-related hardware
+                and performance issues.
+            </p>
+
+        </a>
+
+
+        <a
+            href="Repair.html?service=Speaker%20%26%20Microphone"
+            class="card"
+        >
+
+            <h3>
+                Speaker & Microphone
+            </h3>
+
+            <p>
+                Repair for audio, speaker
+                and microphone problems.
+            </p>
+
+        </a>
+
+
+        <a
+            href="Repair.html?service=Software%20Issues"
+            class="card"
+        >
+
+            <h3>
+                Software Issues
+            </h3>
+
+            <p>
+                Software, update, reset and
+                performance-related problems.
+            </p>
+
+        </a>
+
+
+        <a
+            href="Repair.html?service=Motherboard%20%2F%20IC%20Repair"
+            class="card"
+        >
+
+            <h3>
+                Motherboard / IC Repair
+            </h3>
+
+            <p>
+                Advanced motherboard and
+                IC-level repair services.
+            </p>
+
+        </a>
+
+
+        <a
+            href="Repair.html?service=Other%20Mobile%20Repairs"
+            class="card"
+        >
+
+            <h3>
+                Other Mobile Repairs
+            </h3>
+
+            <p>
+                Other mobile repair services
+                based on your phone's needs.
+            </p>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WHY CHOOSE US
+===================================================== -->
+
+<div class="why">
+
+<section class="why-inner">
+
+    <div class="section-title">
+
+        <h2>
+            Why Choose Us?
+        </h2>
+
+        <p>
+            Service designed around convenience and trust.
+        </p>
+
+    </div>
+
+
+    <div class="why-list">
+
+        <div class="why-item">
+            ✓ Home Pickup & Delivery
         </div>
 
-        <div class="card offer">
-          <h3>Screen Guard & Covers</h3>
-          <p>Ask about available screen guards and mobile covers.</p>
+        <div class="why-item">
+            ✓ Quality Parts
         </div>
 
-      </div>
-    </section>
-
-    <section id="request" style="display:none;">
-
-      <div class="section-title">
-        <h2>Request a Repair</h2>
-        <p>Contact us to arrange your mobile repair service.</p>
-      </div>
-      <form id="repairForm">
-
-<label for="customerName">Your Name</label>
-<input type="text" id="customerName" name="customerName" placeholder="Enter your name" required>
-
-<label for="customerPhone">Phone Number</label>
-<input type="tel" id="customerPhone" name="customerPhone" placeholder="Enter your phone number" required>
-
-<label for="mobileModel">Mobile Brand / Model</label>
-<input type="text" id="mobileModel" name="mobileModel" placeholder="Example: Samsung Galaxy A54" required>
-
-<label for="repairProblem">Repair Required</label>
-<textarea id="repairProblem" name="repairProblem" rows="4" placeholder="Describe the problem with your phone" required></textarea>
-
-<label for="pickup">Home Pickup Required?</label>
-<select id="pickup" name="pickup">
-<option value="No">No</option>
-<option value="Yes">Yes</option>
-</select>
-
-<label for="additionalMessage">Additional Message (Optional)</label>
-<textarea id="additionalMessage" name="additionalMessage" rows="3" placeholder="Any additional information"></textarea>
-
-<button type="submit" class="btn primary">Submit Repair Request</button>
-
-      </form>
-
-      <div class="buttons"
-        <a class="btn primary" href="https://wa.me/918926090128?text=Hello%20Sidhardha%20Mobile%20Repairing%20Service,%20I%20would%20like%20to%20request%20home%20pickup%20for%20my%20mobile%20repair.>Request Home Pickup</a>
-      </div>
-
-    </section>
-
-    <div class="contact" id="contact">
-
-      <section class="contact-inner">5
-
-        <div class="section-title">
-          <h2>Contact Sidhardha Mobile Repairing Service</h2>
-          <p>We're ready to help with your mobile repair.</p>
+        <div class="why-item">
+            ✓ Transparent Pricing
         </div>
 
-        <p>📞 Phone: 8926090128</p>
-<p>💬 WhatsApp: 8926090128</p>
-<p>📍 Service Area: Bhubaneswar, Patia, Nandankanan, Odisha, India</p>
-<p>📧 Email: ss8926090128@gmail.com</p>
-<div class="buttons" style="margin-top:25px;">
-<a class="btn primary" href="tel:+918926090128">Call Now</a>
-<a class="btn secondary" href="https://wa.me/918926090128">WhatsApp</a>
+        <div class="why-item">
+            ✓ Warranty on Selected Repairs
+        </div>
+
+        <div class="why-item">
+            ✓ Fast Service
+        </div>
+
+    </div>
+
+</section>
+
 </div>
 
-      </section>
 
-    </div>
-      <section id="faq">
+<!-- =====================================================
+     OFFERS
+===================================================== -->
+
+<section id="offers">
+
     <div class="section-title">
-        <h2>Frequently Asked Questions</h2>
-        <p>Quick answers about our mobile repair service.</p>
+
+        <h2>
+            Special Offers
+        </h2>
+
+        <p>
+            Ask us about our latest repair and accessory offers.
+        </p>
+
     </div>
+
+
+    <div class="services">
+
+
+        <div class="card offer">
+
+            <h3>
+                Repair Offers
+            </h3>
+
+            <p>
+                Special offers may be available
+                on selected repairs.
+            </p>
+
+        </div>
+
+
+        <div class="card offer">
+
+            <h3>
+                Screen / Display Offers
+            </h3>
+
+            <p>
+                Ask about current display
+                replacement offers.
+            </p>
+
+        </div>
+
+
+        <div class="card offer">
+
+            <h3>
+                Screen Guard & Covers
+            </h3>
+
+            <p>
+                Ask about available screen guards
+                and mobile covers.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<div
+    class="contact"
+    id="contact"
+>
+
+<section class="contact-inner">
+
+    <div class="section-title">
+
+        <h2>
+            Contact Sidhardha Mobile Repairing Service
+        </h2>
+
+        <p>
+            We're ready to help with your mobile repair.
+        </p>
+
+    </div>
+
+
+    <p>
+        📞 Phone: 8926090128
+    </p>
+
+    <p>
+        💬 WhatsApp: 8926090128
+    </p>
+
+    <p>
+        📍 Service Area:
+        Bhubaneswar, Patia, Nandankanan, Odisha, India
+    </p>
+
+    <p>
+        📧 Email:
+        ss8926090128@gmail.com
+    </p>
+
+
+    <div
+        class="buttons"
+        style="margin-top:25px;"
+    >
+
+        <a
+            class="btn primary"
+            href="tel:+918926090128"
+        >
+            Call Now
+        </a>
+
+
+        <a
+            class="btn secondary"
+            href="https://wa.me/918926090128"
+        >
+            WhatsApp
+        </a>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<!-- =====================================================
+     FAQ
+===================================================== -->
+
+<section id="faq">
+
+    <div class="section-title">
+
+        <h2>
+            Frequently Asked Questions
+        </h2>
+
+        <p>
+            Quick answers about our mobile repair service.
+        </p>
+
+    </div>
+
 
     <div class="card">
-        <h3>Do you offer home pickup and delivery?</h3>
-        <p>Yes. Contact us through WhatsApp or the repair request form to arrange home pickup and delivery.</p>
+
+        <h3>
+            Do you offer home pickup and delivery?
+        </h3>
+
+        <p>
+            Yes. Contact us through WhatsApp or
+            the repair request form to arrange
+            home pickup and delivery.
+        </p>
+
     </div>
+
 
     <div class="card">
-        <h3>What mobile phones do you repair?</h3>
-        <p>We provide repair services for common mobile phone brands and models. Contact us with your phone details to discuss the repair.</p>
+
+        <h3>
+            What mobile phones do you repair?
+        </h3>
+
+        <p>
+            We provide repair services for common
+            mobile phone brands and models.
+            Contact us with your phone details
+            to discuss the repair.
+        </p>
+
     </div>
+
 
     <div class="card">
-        <h3>How do I request a repair?</h3>
-        <p>Fill out the repair request form on this website. Your request can be sent directly to us through WhatsApp.</p>
+
+        <h3>
+            How do I request a repair?
+        </h3>
+
+        <p>
+            Fill out the repair request form
+            on this website. Your request can
+            be sent directly to us through WhatsApp.
+        </p>
+
     </div>
+
 
     <div class="card">
-        <h3>How can I contact Sidhardha Mobile Repairing Service?</h3>
-        <p>You can call or WhatsApp us at 8926090128.</p>
+
+        <h3>
+            How can I contact Sidhardha Mobile Repairing Service?
+        </h3>
+
+        <p>
+            You can call or WhatsApp us at
+            8926090128.
+        </p>
+
     </div>
+
 
     <div class="card">
-        <h3>Do you repair software problems?</h3>
-        <p>Yes, software-related mobile problems can be discussed with us. Contact us with the details of your phone and issue.</p>
-    </div>
-      </section>
 
-  </main>
+        <h3>
+            Do you repair software problems?
+        </h3>
+
+        <p>
+            Yes, software-related mobile problems
+            can be discussed with us.
+            Contact us with the details of your
+            phone and issue.
+        </p>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
-© 2026 Siddhardha Mobile Repairing Service. All rights reserved.
+
+    © 2026 Siddhardha Mobile Repairing Service.
+    All rights reserved.
+
 </footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script>
-  function showRepairForm() {
-    const form = document.getElementById("request");
-    form.style.display = "block";
-    form.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-document.getElementById("repairForm").addEventListener("submit", function(event) {
-    event.preventDefault();
 
-    const name = document.getElementById("customerName").value;
-    const phone = document.getElementById("customerPhone").value;
-    const mobile = document.getElementById("mobileModel").value;
-    const repair = document.getElementById("repairProblem").value;
-    const pickup = document.getElementById("pickup").value;
-    const message = document.getElementById("additionalMessage").value;
+/* =====================================================
+   THREE DOT MENU
+===================================================== */
 
-    const whatsappMessage =
-        "Hello Sidhardha Mobile Repairing Service,%0A%0A" +
-        "*New Repair Request*%0A%0A" +
-        "Name: " + name + "%0A" +
-        "Phone: " + phone + "%0A" +
-        "Mobile: " + mobile + "%0A" +
-        "Repair Required: " + repair + "%0A" +
-        "Home Pickup: " + pickup + "%0A" +
-        "Additional Message: " + message;
+const menuButton =
+    document.getElementById(
+        "menuButton"
+    );
 
-    const whatsappURL =
-        "https://wa.me/918926090128?text=" + whatsappMessage;
+const menuDropdown =
+    document.getElementById(
+        "menuDropdown"
+    );
 
-    window.open(whatsappURL, "_blank");
-});
-</script>
-</body>
-  </html>
+
+menuButton.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+        const isOpen =
+            menuDropdown.classList.toggle(
+                "show"
+            );
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+    }
+);
+
+
+/* ==================================
