@@ -3,171 +3,214 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Login - Sidhardha Mobile Repair</title>
 
 <style>
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
-  background: #090c10;
-  color: #ffffff;
-  font-family: Arial, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+    margin: 0;
+    min-height: 100vh;
+    background: #090c10;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
 }
 
 .container {
-  width: 100%;
-  max-width: 430px;
+    width: 100%;
+    max-width: 430px;
 }
 
 .logo {
-  text-align: center;
-  font-size: 42px;
-  margin-bottom: 10px;
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 10px;
 }
 
 h1 {
-  text-align: center;
-  margin: 0;
-  font-size: 30px;
+    text-align: center;
+    margin: 0;
+    font-size: 30px;
 }
 
 .subtitle {
-  text-align: center;
-  color: #9aa3ad;
-  margin: 10px 0 28px;
+    text-align: center;
+    color: #9aa3ad;
+    margin: 10px 0 28px;
 }
 
 .card {
-  background: #111820;
-  border: 1px solid #2c3948;
-  border-radius: 20px;
-  padding: 25px;
+    background: #111820;
+    border: 1px solid #2c3948;
+    border-radius: 20px;
+    padding: 25px;
 }
 
 .tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 25px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
 }
 
 .tab {
-  flex: 1;
-  padding: 14px 8px;
-  border: 1px solid #334255;
-  border-radius: 12px;
-  background: #151d27;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
+    flex: 1;
+    padding: 14px 8px;
+
+    border: 1px solid #334255;
+    border-radius: 12px;
+
+    background: #151d27;
+    color: white;
+
+    font-size: 17px;
+    cursor: pointer;
 }
 
 .tab.active {
-  background: #1976d2;
-  border-color: #1976d2;
+    background: #1976d2;
+    border-color: #1976d2;
 }
 
 label {
-  display: block;
-  margin: 16px 0 8px;
-  font-size: 16px;
-  font-weight: bold;
+    display: block;
+    margin: 16px 0 8px;
+
+    font-size: 16px;
+    font-weight: bold;
 }
 
 input {
-  width: 100%;
-  padding: 15px;
-  border-radius: 12px;
-  border: 1px solid #354456;
-  background: #eaf1ff;
-  color: #111;
-  font-size: 16px;
-  outline: none;
+    width: 100%;
+
+    padding: 15px;
+
+    border-radius: 12px;
+    border: 1px solid #354456;
+
+    background: #eaf1ff;
+    color: #111;
+
+    font-size: 16px;
+
+    outline: none;
 }
 
 input:focus {
-  border-color: #2196f3;
+    border-color: #2196f3;
 }
 
-button.login-btn {
-  width: 100%;
-  margin-top: 24px;
-  padding: 16px;
-  border: none;
-  border-radius: 12px;
-  background: #2196f3;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
+.login-btn {
+    width: 100%;
+
+    margin-top: 24px;
+    padding: 16px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #2196f3;
+    color: white;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
 }
 
-button.login-btn:disabled {
-  opacity: 0.6;
+.login-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .secondary-btn {
-  width: 100%;
-  margin-top: 12px;
-  padding: 14px;
-  border: 1px solid #354456;
-  border-radius: 12px;
-  background: transparent;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
+    width: 100%;
+
+    margin-top: 12px;
+    padding: 14px;
+
+    border: 1px solid #354456;
+    border-radius: 12px;
+
+    background: transparent;
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+.secondary-btn:hover {
+    background: #18212c;
 }
 
 .message {
-  display: none;
-  margin-top: 18px;
-  padding: 14px;
-  border-radius: 12px;
-  text-align: center;
-  font-size: 15px;
-  line-height: 1.4;
+    display: none;
+
+    margin-top: 18px;
+    padding: 14px;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    font-size: 15px;
+    line-height: 1.4;
 }
 
 .message.success {
-  display: block;
-  background: #103a20;
-  border: 1px solid #29934b;
-  color: #73e69a;
+    display: block;
+
+    background: #103a20;
+    border: 1px solid #29934b;
+
+    color: #73e69a;
 }
 
 .message.error {
-  display: block;
-  background: #421619;
-  border: 1px solid #e14b52;
-  color: #ff8b8f;
+    display: block;
+
+    background: #421619;
+    border: 1px solid #e14b52;
+
+    color: #ff8b8f;
 }
 
 .owner-note {
-  display: none;
-  margin-top: 14px;
-  color: #9aa3ad;
-  font-size: 13px;
-  text-align: center;
-  line-height: 1.4;
+    display: none;
+
+    margin-top: 14px;
+
+    color: #9aa3ad;
+
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.4;
 }
 
 .back {
-  display: block;
-  text-align: center;
-  margin-top: 22px;
-  color: #64b5ff;
-  text-decoration: none;
+    display: block;
+
+    text-align: center;
+
+    margin-top: 22px;
+
+    color: #64b5ff;
+
+    text-decoration: none;
+    font-size: 16px;
 }
 
 .hidden {
-  display: none !important;
+    display: none !important;
 }
 </style>
 </head>
@@ -176,210 +219,706 @@ button.login-btn:disabled {
 
 <div class="container">
 
-  <div class="logo">📱</div>
+    <div class="logo">📱</div>
 
-  <h1>Sidhardha Mobile Repair</h1>
+    <h1>Sidhardha Mobile Repair</h1>
 
-  <div class="subtitle">
-    Login to continue
-  </div>
-
-  <div class="card">
-
-    <div class="tabs">
-      <button type="button" class="tab active" id="customerTab">
-        Customer
-      </button>
-
-      <button type="button" class="tab" id="ownerTab">
-        Owner
-      </button>
+    <div class="subtitle">
+        Login to continue
     </div>
 
-    <form id="loginForm">
+    <div class="card">
 
-      <label for="email">Email</label>
+        <div class="tabs">
 
-      <input
-        type="email"
-        id="email"
-        placeholder="Enter your email"
-        required
-        autocomplete="email"
-      >
+            <button
+                type="button"
+                class="tab active"
+                id="customerTab"
+            >
+                Customer
+            </button>
 
-      <label for="password">Password</label>
+            <button
+                type="button"
+                class="tab"
+                id="ownerTab"
+            >
+                Owner
+            </button>
 
-      <input
-        type="password"
-        id="password"
-        placeholder="Enter your password"
-        required
-        autocomplete="current-password"
-      >
+        </div>
 
-      <button
-        type="submit"
-        class="login-btn"
-        id="loginBtn"
-      >
-        Customer Login
-      </button>
 
-      <button
-        type="button"
-        class="secondary-btn"
-        id="signupBtn"
-      >
-        Create Customer Account
-      </button>
+        <form id="loginForm">
 
-      <div
-        class="owner-note"
-        id="ownerNote"
-      >
-        Owner accounts are created separately by the website owner.
-      </div>
+            <label for="email">
+                Email
+            </label>
 
-      <div
-        class="message"
-        id="message"
-      ></div>
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+                autocomplete="email"
+            >
 
-    </form>
 
-  </div>
+            <label for="password">
+                Password
+            </label>
 
-  <a href="index.html" class="back">
-    ← Back to Website
-  </a>
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+                autocomplete="current-password"
+            >
+
+
+            <button
+                type="submit"
+                class="login-btn"
+                id="loginBtn"
+            >
+                Customer Login
+            </button>
+
+
+            <button
+                type="button"
+                class="secondary-btn"
+                id="signupBtn"
+            >
+                Create Customer Account
+            </button>
+
+
+            <div
+                class="owner-note"
+                id="ownerNote"
+            >
+                Owner accounts are created separately by the website owner.
+            </div>
+
+
+            <div
+                class="message"
+                id="message"
+            ></div>
+
+        </form>
+
+    </div>
+
+
+    <a
+        href="index.html"
+        class="back"
+    >
+        ← Back to Website
+    </a>
 
 </div>
 
+
 <script>
 
-/* ================================
+/* =====================================================
    SUPABASE CONFIGURATION
-================================ */
+===================================================== */
 
 const SUPABASE_URL =
-  "https://gilrmxkflutzbeqlileg.supabase.co";
+    "https://gilrmxkflutzbeqlileg.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_cpTh0lXY5b1sVO-JV8hreg_y43eJ7HX";
+    "sb_publishable_cpTh0lXY5b1sVO-JV8hreg_y43eJ7HX";
 
 
-/* ================================
+/* =====================================================
    ELEMENTS
-================================ */
+===================================================== */
 
 const customerTab =
-  document.getElementById("customerTab");
+    document.getElementById("customerTab");
 
 const ownerTab =
-  document.getElementById("ownerTab");
+    document.getElementById("ownerTab");
 
 const loginForm =
-  document.getElementById("loginForm");
+    document.getElementById("loginForm");
 
 const loginBtn =
-  document.getElementById("loginBtn");
+    document.getElementById("loginBtn");
 
 const signupBtn =
-  document.getElementById("signupBtn");
+    document.getElementById("signupBtn");
 
 const ownerNote =
-  document.getElementById("ownerNote");
+    document.getElementById("ownerNote");
 
 const message =
-  document.getElementById("message");
+    document.getElementById("message");
+
+
+/* =====================================================
+   ROLE
+===================================================== */
 
 let selectedRole = "customer";
 
 
-/* ================================
-   MESSAGE
-================================ */
+/* =====================================================
+   SHOW MESSAGE
+===================================================== */
 
 function showMessage(text, type) {
 
-  message.textContent = text;
+    message.textContent = text;
 
-  message.className =
-    "message " + type;
+    message.className =
+        "message " + type;
 }
 
 
-/* ================================
+/* =====================================================
+   CLEAR MESSAGE
+===================================================== */
+
+function clearMessage() {
+
+    message.textContent = "";
+
+    message.className =
+        "message";
+}
+
+
+/* =====================================================
    CUSTOMER TAB
-================================ */
+===================================================== */
 
-customerTab.addEventListener("click", function () {
+customerTab.addEventListener(
+    "click",
+    function () {
 
-  selectedRole = "customer";
+        selectedRole = "customer";
 
-  customerTab.classList.add("active");
-  ownerTab.classList.remove("active");
+        customerTab.classList.add("active");
 
-  loginBtn.textContent = "Customer Login";
+        ownerTab.classList.remove("active");
 
-  signupBtn.classList.remove("hidden");
+        loginBtn.textContent =
+            "Customer Login";
 
-  ownerNote.style.display = "none";
+        signupBtn.classList.remove("hidden");
 
-  message.className = "message";
-  message.textContent = "";
-});
+        ownerNote.style.display =
+            "none";
+
+        clearMessage();
+    }
+);
 
 
-/* ================================
+/* =====================================================
    OWNER TAB
-================================ */
+===================================================== */
 
-ownerTab.addEventListener("click", function () {
+ownerTab.addEventListener(
+    "click",
+    function () {
 
-  selectedRole = "owner";
+        selectedRole = "owner";
 
-  ownerTab.classList.add("active");
-  customerTab.classList.remove("active");
+        ownerTab.classList.add("active");
 
-  loginBtn.textContent = "Owner Login";
+        customerTab.classList.remove("active");
 
-  signupBtn.classList.add("hidden");
+        loginBtn.textContent =
+            "Owner Login";
 
-  ownerNote.style.display = "block";
+        signupBtn.classList.add("hidden");
 
-  message.className = "message";
-  message.textContent = "";
-});
+        ownerNote.style.display =
+            "block";
+
+        clearMessage();
+    }
+);
 
 
-/* ================================
-   SUPABASE REQUEST
-================================ */
+/* =====================================================
+   SUPABASE AUTH REQUEST
+===================================================== */
 
-async function supabaseRequest(
-  endpoint,
-  options = {}
+async function supabaseAuth(
+    endpoint,
+    body
 ) {
 
-  const response = await fetch(
-    SUPABASE_URL + endpoint,
-    {
-      ...options,
+    const response = await fetch(
+        SUPABASE_URL + endpoint,
+        {
+            method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_KEY,
+            headers: {
+                "Content-Type":
+                    "application/json",
 
-        "Authorization":
-          "Bearer " + SUPABASE_KEY,
+                "apikey":
+                    SUPABASE_KEY
+            },
 
-        ...(options.headers || {})
-      }
+            body:
+                JSON.stringify(body)
+        }
+    );
+
+
+    const text =
+        await response.text();
+
+
+    let data = null;
+
+
+    try {
+
+        data =
+            text
+                ? JSON.parse(text)
+                : null;
+
+    } catch (error) {
+
+        data = {
+            error_description:
+                text
+        };
     }
-  );
 
-  const text = await response.text();
 
-  let data =
+    if (!response.ok) {
+
+        const errorMessage =
+            data?.error_description ||
+            data?.msg ||
+            data?.message ||
+            "Login request failed.";
+
+        throw new Error(
+            errorMessage
+        );
+    }
+
+
+    return data;
+}
+
+
+/* =====================================================
+   CUSTOMER SIGNUP
+===================================================== */
+
+signupBtn.addEventListener(
+    "click",
+    async function () {
+
+        const email =
+            document.getElementById(
+                "email"
+            ).value.trim();
+
+        const password =
+            document.getElementById(
+                "password"
+            ).value;
+
+
+        if (!email) {
+
+            showMessage(
+                "Please enter your email first.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (!password) {
+
+            showMessage(
+                "Please enter a password.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (password.length < 6) {
+
+            showMessage(
+                "Password must be at least 6 characters.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        signupBtn.disabled = true;
+
+        signupBtn.textContent =
+            "Creating Account...";
+
+
+        clearMessage();
+
+
+        try {
+
+            const data =
+                await supabaseAuth(
+                    "/auth/v1/signup",
+                    {
+                        email: email,
+                        password: password,
+
+                        data: {
+                            role: "customer"
+                        }
+                    }
+                );
+
+
+            if (
+                data &&
+                data.access_token
+            ) {
+
+                localStorage.setItem(
+                    "supabase_access_token",
+                    data.access_token
+                );
+
+                localStorage.setItem(
+                    "supabase_refresh_token",
+                    data.refresh_token || ""
+                );
+
+                localStorage.setItem(
+                    "user_role",
+                    "customer"
+                );
+
+                localStorage.setItem(
+                    "user_id",
+                    data.user?.id || ""
+                );
+
+
+                showMessage(
+                    "Account created successfully. Opening customer page...",
+                    "success"
+                );
+
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "Repair.html";
+
+                    },
+                    1000
+                );
+
+
+                return;
+            }
+
+
+            showMessage(
+                "Account created. Please check your email if verification is required, then login.",
+                "success"
+            );
+
+
+        } catch (error) {
+
+            showMessage(
+                error.message ||
+                "Unable to create account.",
+                "error"
+            );
+
+        } finally {
+
+            signupBtn.disabled = false;
+
+            signupBtn.textContent =
+                "Create Customer Account";
+        }
+    }
+);
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+loginForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+
+        const email =
+            document.getElementById(
+                "email"
+            ).value.trim();
+
+        const password =
+            document.getElementById(
+                "password"
+            ).value;
+
+
+        if (!email || !password) {
+
+            showMessage(
+                "Please enter email and password.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        loginBtn.disabled = true;
+
+        loginBtn.textContent =
+            "Signing in...";
+
+
+        clearMessage();
+
+
+        try {
+
+            const data =
+                await supabaseAuth(
+                    "/auth/v1/token?grant_type=password",
+                    {
+                        email: email,
+                        password: password
+                    }
+                );
+
+
+            if (
+                !data ||
+                !data.access_token ||
+                !data.user
+            ) {
+
+                throw new Error(
+                    "Login succeeded but no user session was returned."
+                );
+            }
+
+
+            /* ==========================================
+               SAVE SESSION
+            ========================================== */
+
+            localStorage.setItem(
+                "supabase_access_token",
+                data.access_token
+            );
+
+            localStorage.setItem(
+                "supabase_refresh_token",
+                data.refresh_token || ""
+            );
+
+            localStorage.setItem(
+                "user_id",
+                data.user.id
+            );
+
+            localStorage.setItem(
+                "user_email",
+                data.user.email || email
+            );
+
+
+            /* ==========================================
+               ROLE
+            ========================================== */
+
+            const metadataRole =
+                data.user?.user_metadata?.role;
+
+
+            if (
+                metadataRole === "owner"
+            ) {
+
+                localStorage.setItem(
+                    "user_role",
+                    "owner"
+                );
+
+            } else {
+
+                localStorage.setItem(
+                    "user_role",
+                    selectedRole
+                );
+            }
+
+
+            /* ==========================================
+               OWNER LOGIN
+            ========================================== */
+
+            if (
+                selectedRole === "owner"
+            ) {
+
+                showMessage(
+                    "Owner login successful. Opening Owner Dashboard...",
+                    "success"
+                );
+
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "Owner.html";
+
+                    },
+                    700
+                );
+
+
+                return;
+            }
+
+
+            /* ==========================================
+               CUSTOMER LOGIN
+            ========================================== */
+
+            showMessage(
+                "Customer login successful. Opening customer page...",
+                "success"
+            );
+
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+                        "Repair.html";
+
+                },
+                700
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Login error:",
+                error
+            );
+
+
+            let errorText =
+                error.message ||
+                "Unable to login.";
+
+
+            if (
+                errorText.includes(
+                    "Invalid login credentials"
+                )
+            ) {
+
+                errorText =
+                    "Invalid email or password.";
+
+            }
+
+
+            showMessage(
+                errorText,
+                "error"
+            );
+
+
+        } finally {
+
+            loginBtn.disabled = false;
+
+
+            if (
+                selectedRole === "owner"
+            ) {
+
+                loginBtn.textContent =
+                    "Owner Login";
+
+            } else {
+
+                loginBtn.textContent =
+                    "Customer Login";
+            }
+        }
+    }
+);
+
+
+/* =====================================================
+   AUTO REDIRECT IF ALREADY LOGGED IN
+===================================================== */
+
+(function checkExistingSession() {
+
+    const token =
+        localStorage.getItem(
+            "supabase_access_token"
+        );
+
+    const role =
+        localStorage.getItem(
+            "user_role"
+        );
+
+
+    if (
+        token &&
+        role === "owner"
+    ) {
+
+        /*
+         * Do not redirect immediately.
+         * The user can still use the login page.
+         */
+    }
+
+})();
+
+</script>
+
+</body>
+</html>
