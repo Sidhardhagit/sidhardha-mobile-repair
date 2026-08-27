@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Sidhardha Mobile Repair</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #090c10;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 430px;
+}
+
+.logo {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  text-align: center;
+  margin: 0;
+  font-size: 30px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #9aa3ad;
+  margin: 10px 0 28px;
+}
+
+.card {
+  background: #111820;
+  border: 1px solid #2c3948;
+  border-radius: 20px;
+  padding: 25px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.tab {
+  flex: 1;
+  padding: 14px 8px;
+  border: 1px solid #334255;
+  border-radius: 12px;
+  background: #151d27;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #1976d2;
+  border-color: #1976d2;
+}
+
+label {
+  display: block;
+  margin: 16px 0 8px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #354456;
+  background: #eaf1ff;
+  color: #111;
+  font-size: 16px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #2196f3;
+}
+
+button.login-btn {
+  width: 100%;
+  margin-top: 24px;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #2196f3;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button.login-btn:disabled {
+  opacity: 0.6;
+}
+
+.secondary-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid #354456;
+  border-radius: 12px;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.message {
+  display: none;
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.message.success {
+  display: block;
+  background: #103a20;
+  border: 1px solid #29934b;
+  color: #73e69a;
+}
+
+.message.error {
+  display: block;
+  background: #421619;
+  border: 1px solid #e14b52;
+  color: #ff8b8f;
+}
+
+.owner-note {
+  display: none;
+  margin-top: 14px;
+  color: #9aa3ad;
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.back {
+  display: block;
+  text-align: center;
+  margin-top: 22px;
+  color: #64b5ff;
+  text-decoration: none;
+}
+
+.hidden {
+  display: none !important;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="logo">📱</div>
+
+  <h1>Sidhardha Mobile Repair</h1>
+
+  <div class="subtitle">
+    Login to continue
+  </div>
+
+  <div class="card">
+
+    <div class="tabs">
+      <button type="button" class="tab active" id="customerTab">
+        Customer
+      </button>
+
+      <button type="button" class="tab" id="ownerTab">
+        Owner
+      </button>
+    </div>
+
+    <form id="loginForm">
+
+      <label for="email">Email</label>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email"
+        required
+        autocomplete="email"
+      >
+
+      <label for="password">Password</label>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        required
+        autocomplete="current-password"
+      >
+
+      <button
+        type="submit"
+        class="login-btn"
+        id="loginBtn"
+      >
+        Customer Login
+      </button>
+
+      <button
+        type="button"
+        class="secondary-btn"
+        id="signupBtn"
+      >
+        Create Customer Account
+      </button>
+
+      <div
+        class="owner-note"
+        id="ownerNote"
+      >
+        Owner accounts are created separately by the website owner.
+      </div>
+
+      <div
+        class="message"
+        id="message"
+      ></div>
+
+    </form>
+
+  </div>
+
+  <a href="index.html" class="back">
+    ← Back to Website
+  </a>
+
+</div>
+
+<script>
+
+/* ================================
+   SUPABASE CONFIGURATION
+================================ */
+
+const SUPABASE_URL =
+  "https://gilrmxkflutzbeqlileg.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_cpTh0lXY5b1sVO-JV8hreg_y43eJ7HX";
+
+
+/* ================================
+   ELEMENTS
+================================ */
+
+const customerTab =
+  document.getElementById("customerTab");
+
+const ownerTab =
+  document.getElementById("ownerTab");
+
+const loginForm =
+  document.getElementById("loginForm");
+
+const loginBtn =
+  document.getElementById("loginBtn");
+
+const signupBtn =
+  document.getElementById("signupBtn");
+
+const ownerNote =
+  document.getElementById("ownerNote");
+
+const message =
+  document.getElementById("message");
+
+let selectedRole = "customer";
+
+
+/* ================================
+   MESSAGE
+================================ */
+
+function showMessage(text, type) {
+
+  message.textContent = text;
+
+  message.className =
+    "message " + type;
+}
+
+
+/* ================================
+   CUSTOMER TAB
+================================ */
+
+customerTab.addEventListener("click", function () {
+
+  selectedRole = "customer";
+
+  customerTab.classList.add("active");
+  ownerTab.classList.remove("active");
+
+  loginBtn.textContent = "Customer Login";
+
+  signupBtn.classList.remove("hidden");
+
+  ownerNote.style.display = "none";
+
+  message.className = "message";
+  message.textContent = "";
+});
+
+
+/* ================================
+   OWNER TAB
+================================ */
+
+ownerTab.addEventListener("click", function () {
+
+  selectedRole = "owner";
+
+  ownerTab.classList.add("active");
+  customerTab.classList.remove("active");
+
+  loginBtn.textContent = "Owner Login";
+
+  signupBtn.classList.add("hidden");
+
+  ownerNote.style.display = "block";
+
+  message.className = "message";
+  message.textContent = "";
+});
+
+
+/* ================================
+   SUPABASE REQUEST
+================================ */
+
+async function supabaseRequest(
+  endpoint,
+  options = {}
+) {
+
+  const response = await fetch(
+    SUPABASE_URL + endpoint,
+    {
+      ...options,
+
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+
+        "Authorization":
+          "Bearer " + SUPABASE_KEY,
+
+        ...(options.headers || {})
+      }
+    }
+  );
+
+  const text = await response.text();
+
+  let data =
