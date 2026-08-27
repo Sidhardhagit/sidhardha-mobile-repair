@@ -33,6 +33,12 @@ body {
     font-size: 25px;
 }
 
+.header-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 .logout-btn,
 .refresh-btn {
     border: none;
@@ -41,6 +47,7 @@ body {
     color: white;
     font-weight: bold;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .logout-btn {
@@ -49,6 +56,12 @@ body {
 
 .refresh-btn {
     background: #1976d2;
+}
+
+.logout-btn:disabled,
+.refresh-btn:disabled {
+    opacity: 0.6;
+    cursor: wait;
 }
 
 .container {
@@ -74,7 +87,7 @@ body {
 }
 
 .stat-number {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
 }
 
@@ -94,7 +107,7 @@ body {
 .booking-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: 15px;
     margin-bottom: 15px;
 }
@@ -107,6 +120,47 @@ body {
 .booking-date {
     color: #9da8b4;
     font-size: 13px;
+    margin-top: 5px;
+}
+
+.booking-id {
+    color: #718096;
+    font-size: 11px;
+    margin-top: 4px;
+    word-break: break-all;
+}
+
+.status-badge {
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.status-pending {
+    background: #493b12;
+    color: #ffd666;
+}
+
+.status-confirmed {
+    background: #123d5c;
+    color: #70c7ff;
+}
+
+.status-in-repair {
+    background: #4a2b08;
+    color: #ffb454;
+}
+
+.status-completed {
+    background: #123d20;
+    color: #7ee787;
+}
+
+.status-cancelled {
+    background: #49171a;
+    color: #ff8b88;
 }
 
 .details {
@@ -130,24 +184,29 @@ body {
 .detail-value {
     font-size: 15px;
     word-break: break-word;
+    white-space: pre-wrap;
 }
 
 .status-area {
     margin-top: 18px;
     padding-top: 18px;
     border-top: 1px solid #293646;
-    display: flex;
-    align-items: center;
-    gap: 12px;
 }
 
-.status-label {
+.status-area-title {
     font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.status-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .status-select {
     flex: 1;
-    max-width: 300px;
+    max-width: 350px;
     padding: 12px;
     border-radius: 10px;
     border: 1px solid #3b4a5c;
@@ -168,6 +227,7 @@ body {
 
 .status-btn:disabled {
     opacity: 0.5;
+    cursor: wait;
 }
 
 .loading,
@@ -182,6 +242,11 @@ body {
 
 .error {
     color: #ff8b88;
+    line-height: 1.5;
+}
+
+.empty {
+    color: #9da8b4;
 }
 
 .success-message {
@@ -196,6 +261,31 @@ body {
     padding: 14px 20px;
     border-radius: 12px;
     z-index: 1000;
+    max-width: 90%;
+    text-align: center;
+}
+
+.top-message {
+    display: none;
+    margin-bottom: 18px;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.top-message.error {
+    display: block;
+    background: #3b1616;
+    border: 1px solid #da3633;
+    color: #ff8b88;
+}
+
+.top-message.success {
+    display: block;
+    background: #12351d;
+    border: 1px solid #238636;
+    color: #7ee787;
 }
 
 @media (max-width: 700px) {
@@ -209,6 +299,15 @@ body {
         text-align: center;
     }
 
+    .header-buttons {
+        justify-content: center;
+    }
+
+    .refresh-btn,
+    .logout-btn {
+        flex: 1;
+    }
+
     .stats {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -217,7 +316,11 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .status-area {
+    .booking-header {
+        flex-direction: column;
+    }
+
+    .status-controls {
         flex-direction: column;
         align-items: stretch;
     }
@@ -240,8 +343,10 @@ body {
 
     <h1>👑 Owner Dashboard</h1>
 
-    <div>
+    <div class="header-buttons">
+
         <button
+            type="button"
             class="refresh-btn"
             id="refreshBtn"
         >
@@ -249,17 +354,25 @@ body {
         </button>
 
         <button
+            type="button"
             class="logout-btn"
             id="logoutBtn"
         >
             🚪 Logout
         </button>
+
     </div>
 
 </div>
 
 
 <div class="container">
+
+    <div
+        id="topMessage"
+        class="top-message"
+    ></div>
+
 
     <div class="stats">
 
@@ -336,14 +449,14 @@ body {
     class="success-message"
     id="successMessage"
 >
-    Status updated successfully!
+    ✅ Status updated successfully!
 </div>
 
 
 <script>
 
 /* =====================================================
-   SUPABASE CONFIG
+   SUPABASE CONFIGURATION
 ===================================================== */
 
 const SUPABASE_URL =
@@ -360,4 +473,726 @@ const SUPABASE_KEY =
 const bookingsContainer =
     document.getElementById("bookings");
 
-const refresh
+const refreshBtn =
+    document.getElementById("refreshBtn");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+const totalCount =
+    document.getElementById("totalCount");
+
+const pendingCount =
+    document.getElementById("pendingCount");
+
+const repairCount =
+    document.getElementById("repairCount");
+
+const completedCount =
+    document.getElementById("completedCount");
+
+const successMessage =
+    document.getElementById("successMessage");
+
+const topMessage =
+    document.getElementById("topMessage");
+
+
+/* =====================================================
+   SESSION
+===================================================== */
+
+const accessToken =
+    localStorage.getItem(
+        "supabase_access_token"
+    );
+
+const userRole =
+    localStorage.getItem(
+        "user_role"
+    );
+
+
+/* =====================================================
+   SECURITY CHECK
+===================================================== */
+
+if (!accessToken || userRole !== "owner") {
+
+    window.location.href =
+        "Login.html";
+
+}
+
+
+/* =====================================================
+   SUPABASE HEADERS
+===================================================== */
+
+function getHeaders() {
+
+    return {
+        "Content-Type":
+            "application/json",
+
+        "apikey":
+            SUPABASE_KEY,
+
+        "Authorization":
+            "Bearer " + accessToken,
+
+        "Prefer":
+            "return=representation"
+    };
+
+}
+
+
+/* =====================================================
+   SHOW TOP MESSAGE
+===================================================== */
+
+function showTopMessage(
+    text,
+    type
+) {
+
+    topMessage.textContent =
+        text;
+
+    topMessage.className =
+        "top-message " + type;
+
+}
+
+
+/* =====================================================
+   HIDE TOP MESSAGE
+===================================================== */
+
+function hideTopMessage() {
+
+    topMessage.textContent = "";
+
+    topMessage.className =
+        "top-message";
+
+}
+
+
+/* =====================================================
+   SHOW SUCCESS
+===================================================== */
+
+function showSuccess() {
+
+    successMessage.style.display =
+        "block";
+
+    setTimeout(
+        function () {
+
+            successMessage.style.display =
+                "none";
+
+        },
+        2500
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "—";
+
+    }
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* =====================================================
+   FORMAT STATUS
+===================================================== */
+
+function formatStatus(status) {
+
+    if (!status) {
+
+        return "Pending";
+
+    }
+
+    const value =
+        String(status)
+            .toLowerCase()
+            .trim();
+
+    if (value === "pending") {
+
+        return "Pending";
+
+    }
+
+    if (
+        value === "confirmed"
+    ) {
+
+        return "Confirmed";
+
+    }
+
+    if (
+        value === "in_repair" ||
+        value === "in repair" ||
+        value === "repair"
+    ) {
+
+        return "In Repair";
+
+    }
+
+    if (
+        value === "completed" ||
+        value === "complete"
+    ) {
+
+        return "Completed";
+
+    }
+
+    if (
+        value === "cancelled" ||
+        value === "canceled"
+    ) {
+
+        return "Cancelled";
+
+    }
+
+    return status;
+
+}
+
+
+/* =====================================================
+   STATUS CLASS
+===================================================== */
+
+function getStatusClass(status) {
+
+    const value =
+        String(status || "pending")
+            .toLowerCase()
+            .trim();
+
+    if (value === "confirmed") {
+
+        return "status-confirmed";
+
+    }
+
+    if (
+        value === "in_repair" ||
+        value === "in repair" ||
+        value === "repair"
+    ) {
+
+        return "status-in-repair";
+
+    }
+
+    if (
+        value === "completed" ||
+        value === "complete"
+    ) {
+
+        return "status-completed";
+
+    }
+
+    if (
+        value === "cancelled" ||
+        value === "canceled"
+    ) {
+
+        return "status-cancelled";
+
+    }
+
+    return "status-pending";
+
+}
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(value) {
+
+    if (!value) {
+
+        return "Date not available";
+
+    }
+
+    try {
+
+        const date =
+            new Date(value);
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return value;
+
+        }
+
+        return date.toLocaleString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
+
+    } catch (error) {
+
+        return value;
+
+    }
+
+}
+
+
+/* =====================================================
+   FETCH BOOKINGS
+===================================================== */
+
+async function fetchBookings() {
+
+    hideTopMessage();
+
+    bookingsContainer.innerHTML =
+        `
+        <div class="loading">
+            Loading bookings...
+        </div>
+        `;
+
+    try {
+
+        const response =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/repair_requests?select=*&order=created_at.desc",
+                {
+                    method: "GET",
+                    headers:
+                        getHeaders()
+                }
+            );
+
+
+        const text =
+            await response.text();
+
+
+        let data = [];
+
+
+        try {
+
+            data =
+                text
+                    ? JSON.parse(text)
+                    : [];
+
+        } catch (error) {
+
+            throw new Error(
+                "Invalid response from Supabase."
+            );
+
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data?.message ||
+                data?.hint ||
+                text ||
+                "Unable to load bookings."
+            );
+
+        }
+
+
+        if (!Array.isArray(data)) {
+
+            throw new Error(
+                "Supabase returned an unexpected booking response."
+            );
+
+        }
+
+
+        renderBookings(data);
+
+    } catch (error) {
+
+        console.error(
+            "BOOKING LOAD ERROR:",
+            error
+        );
+
+        bookingsContainer.innerHTML =
+            `
+            <div class="error">
+
+                ❌ Unable to load bookings.
+
+                <br><br>
+
+                ${escapeHtml(
+                    error.message
+                )}
+
+                <br><br>
+
+                Tap <b>Refresh</b> to try again.
+
+            </div>
+            `;
+
+        resetCounters();
+
+    }
+
+}
+
+
+/* =====================================================
+   RESET COUNTERS
+===================================================== */
+
+function resetCounters() {
+
+    totalCount.textContent =
+        "0";
+
+    pendingCount.textContent =
+        "0";
+
+    repairCount.textContent =
+        "0";
+
+    completedCount.textContent =
+        "0";
+
+}
+
+
+/* =====================================================
+   UPDATE COUNTERS
+===================================================== */
+
+function updateCounters(bookings) {
+
+    totalCount.textContent =
+        bookings.length;
+
+
+    let pending = 0;
+
+    let inRepair = 0;
+
+    let completed = 0;
+
+
+    bookings.forEach(
+        function (booking) {
+
+            const status =
+                String(
+                    booking.status ||
+                    "pending"
+                )
+                .toLowerCase()
+                .trim();
+
+
+            if (
+                status === "pending"
+            ) {
+
+                pending++;
+
+            }
+
+
+            if (
+                status === "in_repair" ||
+                status === "in repair" ||
+                status === "repair"
+            ) {
+
+                inRepair++;
+
+            }
+
+
+            if (
+                status === "completed" ||
+                status === "complete"
+            ) {
+
+                completed++;
+
+            }
+
+        }
+    );
+
+
+    pendingCount.textContent =
+        pending;
+
+    repairCount.textContent =
+        inRepair;
+
+    completedCount.textContent =
+        completed;
+
+}
+
+
+/* =====================================================
+   RENDER BOOKINGS
+===================================================== */
+
+function renderBookings(bookings) {
+
+    updateCounters(bookings);
+
+
+    if (bookings.length === 0) {
+
+        bookingsContainer.innerHTML =
+            `
+            <div class="empty">
+
+                📭 No repair bookings yet.
+
+                <br><br>
+
+                New bookings from the website
+                will appear here.
+
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    bookingsContainer.innerHTML =
+        bookings
+            .map(
+                function (booking) {
+
+                    return createBookingHtml(
+                        booking
+                    );
+
+                }
+            )
+            .join("");
+
+
+    attachBookingEvents();
+
+}
+
+
+/* =====================================================
+   CREATE BOOKING HTML
+===================================================== */
+
+function createBookingHtml(
+    booking
+) {
+
+    const status =
+        booking.status ||
+        "pending";
+
+
+    const id =
+        booking.id ||
+        "";
+
+
+    return `
+    <div class="booking">
+
+        <div class="booking-header">
+
+            <div>
+
+                <div class="booking-title">
+
+                    ${
+                        escapeHtml(
+                            booking.customer_name ||
+                            "Customer"
+                        )
+                    }
+
+                </div>
+
+                <div class="booking-date">
+
+                    📅 ${
+                        escapeHtml(
+                            formatDate(
+                                booking.created_at
+                            )
+                        )
+                    }
+
+                </div>
+
+                <div class="booking-id">
+
+                    Booking ID:
+                    ${escapeHtml(id)}
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="status-badge
+                ${getStatusClass(status)}"
+            >
+
+                ${escapeHtml(
+                    formatStatus(status)
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="details">
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    📞 Customer Phone
+                </div>
+
+                <div class="detail-value">
+
+                    ${
+                        escapeHtml(
+                            booking.customer_phone
+                        )
+                    }
+
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    📱 Mobile Model
+                </div>
+
+                <div class="detail-value">
+
+                    ${
+                        escapeHtml(
+                            booking.mobile_model
+                        )
+                    }
+
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    🔧 Repair Service
+                </div>
+
+                <div class="detail-value">
+
+                    ${
+                        escapeHtml(
+                            booking.repair_service
+                        )
+                    }
+
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    🏠 Home Pickup
+                </div>
+
+                <div class="detail-value">
+
+                    ${
+                        escapeHtml(
+                            booking.pickup ||
+                            "Not specified"
+                        )
+                    }
+
+                </div>
+
+            </div>
+
+
+            <div class="detail">
+
+                <div class="detail-label">
+                    ?
