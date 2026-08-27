@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Repair - Siddhartha Mobile Repairing Service</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #07111f;
+      color: white;
+    }
+
+    header {
+      background: #07111f;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 1px solid #1b3048;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 0;
+      color: #aebdce;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 650px;
+      margin: 35px auto;
+    }
+
+    .form-card {
+      background: #0d1c2d;
+      border: 1px solid #203850;
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 25px;
+      font-size: 28px;
+    }
+
+    label {
+      display: block;
+      margin: 18px 0 8px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #38516b;
+      background: #081522;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #1683ff;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .location-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .location-row input {
+      flex: 1;
+    }
+
+    .location-btn {
+      width: auto;
+      white-space: nowrap;
+      background: #1683ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .pickup-row {
+      display: flex;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .pickup-row label {
+      margin: 0;
+      font-weight: normal;
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 28px;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #1683ff;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #0d6edc;
+    }
+
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #aebdce;
+      text-decoration: none;
+    }
+
+    .note {
+      text-align: center;
+      color: #8fa4ba;
+      font-size: 14px;
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 550px) {
+      header h1 {
+        font-size: 23px;
+      }
+
+      .form-card {
+        padding: 20px;
+      }
+
+      .location-row {
+        flex-direction: column;
+      }
+
+      .location-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Siddhartha Mobile Repairing Service</h1>
+    <p>Fast • Reliable • Affordable</p>
+  </header>
+
+  <main class="container">
+
+    <div class="form-card">
+
+      <h2>Book a Repair</h2>
+
+      <form id="repairForm">
+
+        <label for="customerName">Your Name</label>
+        <input
+          type="text"
+          id="customerName"
+          name="customerName"
+          placeholder="Enter your name"
+          required
+        >
+
+        <label for="customerPhone">Phone Number</label>
+        <input
+          type="tel"
+          id="customerPhone"
+          name="customerPhone"
+          placeholder="Enter your phone number"
+          required
+        >
+
+        <label for="mobileModel">Mobile Brand / Model</label>
+        <input
+          type="text"
+          id="mobileModel"
+          name="mobileModel"
+          placeholder="Example: Samsung Galaxy A54"
+          required
+        >
+
+        <label for="repairService">Repair Service</label>
+        <select id="repairService" name="repairService" required>
+          <option value="">Select a repair service</option>
+          <option value="Display Replacement">Display Replacement</option>
+          <option value="Battery Replacement">Battery Replacement</option>
+          <option value="Charging Port Repair">Charging Port Repair</option>
+          <option value="Camera Repair">Camera Repair</option>
+          <option value="Speaker & Microphone">Speaker & Microphone</option>
+          <option value="Software Issues">Software Issues</option>
+          <option value="Motherboard / IC Repair">Motherboard / IC Repair</option>
+          <option value="Other Mobile Repairs">Other Mobile Repairs</option>
+        </select>
+
+        <label for="repairProblem">What is the problem?</label>
+        <textarea
+          id="repairProblem"
+          name="repairProblem"
+          placeholder="Describe the problem with your phone"
+          required
+        ></textarea>
+
+        <label for="customerLocation">Customer Location / Address</label>
+
+        <div class="location-row">
+          <input
+            type="text"
+            id="customerLocation"
+            name="customerLocation"
+            placeholder="Enter your address or landmark"
+            required
+          >
+
+          <button
+            type="button"
+            class="location-btn"
+            onclick="getLocation()"
+          >
+            📍 Use My Location
+          </button>
+        </div>
+
+        <label>Home Pickup Required?</label>
+
+        <div class="pickup-row">
+          <label>
+            <input type="radio" name="pickup" value="Yes" required>
+            Yes
+          </label>
+
+          <label>
+            <input type="radio" name="pickup" value="No">
+            No
+          </label>
+        </div>
+
+        <label for="additionalMessage">Additional Message</label>
+
+        <textarea
+          id="additionalMessage"
+          name="additionalMessage"
+          placeholder="Any additional information (optional)"
+        ></textarea>
+
+        <button type="submit" class="submit-btn">
+          Submit Repair Request
+        </button>
+
+      </form>
+
+      <a href="index.html" class="back-btn">
+        ← Back to Website
+      </a>
+
+      <p class="note">
+        Your repair request will be handled separately from WhatsApp enquiries.
+      </p>
+
+    </div>
+
+  </main>
+
+  <script>
+
+    // Automatically select the service when the page is opened
+    // like repair.html?service=Display%20Replacement
+
+    const params = new URLSearchParams(window.location.search);
+    const selectedService = params.get("service");
+
+    if (selectedService) {
+      const serviceSelect = document.getElementById("repairService");
+
+      for (let option of serviceSelect.options) {
+        if (option.value === selectedService) {
+          serviceSelect.value = selectedService;
+          break;
+        }
+      }
+    }
+
+    // Get customer's current location
+    function getLocation() {
+
+      const locationInput = document.getElementById("customerLocation");
+
+      if (!navigator.geolocation) {
+        alert("Location is not supported by your browser. Please enter your address manually.");
+        return;
+      }
+
+      locationInput.value = "Getting your location...";
+
+      navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+
+          locationInput.value =
+            "GPS Location: " + latitude + ", " + longitude;
+
+        },
+
+        function() {
+
+          locationInput.value = "";
+
+          alert(
+            "Unable to get your location. Please allow location permission or enter your address manually."
+          );
+
+        }
+      );
+    }
+
+    // Temporary submit handler
+    document.getElementById("repairForm").addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      alert(
+        "Your repair form is ready. We will connect this button to the website booking system next."
+      );
+
+    });
+
+  </script>
+
+</body>
+</html>
