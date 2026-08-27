@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book a Repair - Siddhartha Mobile Repairing Service</title>
+  <title>Book a Repair</title>
 
   <style>
     * {
@@ -13,46 +13,25 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #07111f;
-      color: white;
-    }
-
-    header {
-      background: #07111f;
-      padding: 25px 20px;
-      text-align: center;
-      border-bottom: 1px solid #1b3048;
-    }
-
-    header h1 {
-      margin: 0 0 10px;
-      font-size: 28px;
-    }
-
-    header p {
-      margin: 0;
-      color: #aebdce;
+      background: #0b0f14;
+      color: #fff;
     }
 
     .container {
-      width: 92%;
       max-width: 650px;
-      margin: 35px auto;
+      margin: 0 auto;
+      padding: 25px 18px 50px;
     }
 
-    .form-card {
-      background: #0d1c2d;
-      border: 1px solid #203850;
-      border-radius: 18px;
-      padding: 25px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    }
-
-    h2 {
+    h1 {
       text-align: center;
-      margin-top: 0;
-      margin-bottom: 25px;
-      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #aab2bd;
+      margin-bottom: 30px;
     }
 
     label {
@@ -67,8 +46,8 @@
       width: 100%;
       padding: 14px;
       border-radius: 10px;
-      border: 1px solid #38516b;
-      background: #081522;
+      border: 1px solid #344154;
+      background: #111821;
       color: white;
       font-size: 16px;
       outline: none;
@@ -77,11 +56,11 @@
     input:focus,
     select:focus,
     textarea:focus {
-      border-color: #1683ff;
+      border-color: #238636;
     }
 
     textarea {
-      min-height: 110px;
+      min-height: 130px;
       resize: vertical;
     }
 
@@ -95,26 +74,28 @@
     }
 
     .location-btn {
-      width: auto;
-      white-space: nowrap;
-      background: #1683ff;
-      color: white;
       border: none;
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 0 16px;
+      background: #1769aa;
+      color: white;
       font-weight: bold;
-      cursor: pointer;
     }
 
-    .pickup-row {
+    .pickup-options {
       display: flex;
-      gap: 20px;
+      gap: 35px;
       margin-top: 10px;
     }
 
-    .pickup-row label {
+    .pickup-options label {
       margin: 0;
       font-weight: normal;
+    }
+
+    .pickup-options input {
+      width: auto;
+      margin-right: 8px;
     }
 
     .submit-btn {
@@ -123,202 +104,220 @@
       padding: 16px;
       border: none;
       border-radius: 10px;
-      background: #1683ff;
+      background: #238636;
       color: white;
-      font-size: 17px;
+      font-size: 18px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .submit-btn:hover {
-      background: #0d6edc;
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: wait;
     }
 
     .back-btn {
       display: block;
       text-align: center;
       margin-top: 20px;
-      color: #aebdce;
+      color: #58a6ff;
       text-decoration: none;
     }
 
-    .note {
-      text-align: center;
-      color: #8fa4ba;
-      font-size: 14px;
+    #message {
+      display: none;
       margin-top: 20px;
-      line-height: 1.5;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
     }
 
-    @media (max-width: 550px) {
-      header h1 {
-        font-size: 23px;
-      }
+    .success {
+      background: #12351d;
+      color: #7ee787;
+      border: 1px solid #238636;
+    }
 
-      .form-card {
-        padding: 20px;
-      }
-
-      .location-row {
-        flex-direction: column;
-      }
-
-      .location-btn {
-        width: 100%;
-      }
+    .error {
+      background: #3b1616;
+      color: #ff7b72;
+      border: 1px solid #da3633;
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Siddhartha Mobile Repairing Service</h1>
-    <p>Fast • Reliable • Affordable</p>
-  </header>
+  <div class="container">
 
-  <main class="container">
+    <h1>Book a Repair</h1>
 
-    <div class="form-card">
+    <p class="subtitle">
+      Tell us about your device and repair requirement.
+    </p>
 
-      <h2>Book a Repair</h2>
+    <form id="repairForm">
 
-      <form id="repairForm">
+      <label for="customerName">Customer Name</label>
+      <input
+        type="text"
+        id="customerName"
+        name="customer_name"
+        placeholder="Enter your name"
+        required
+      >
 
-        <label for="customerName">Your Name</label>
+      <label for="customerPhone">Phone Number</label>
+      <input
+        type="tel"
+        id="customerPhone"
+        name="customer_phone"
+        placeholder="Enter your phone number"
+        required
+      >
+
+      <label for="mobileModel">Mobile Model</label>
+      <input
+        type="text"
+        id="mobileModel"
+        name="mobile_model"
+        placeholder="Example: iPhone 13 / Samsung S23"
+        required
+      >
+
+      <label for="repairService">Repair Service</label>
+      <select id="repairService" name="repair_problem" required>
+        <option value="">Select repair service</option>
+        <option value="Display Replacement">Display Replacement</option>
+        <option value="Battery Replacement">Battery Replacement</option>
+        <option value="Charging Problem">Charging Problem</option>
+        <option value="Speaker / Mic Problem">Speaker / Mic Problem</option>
+        <option value="Camera Problem">Camera Problem</option>
+        <option value="Water Damage">Water Damage</option>
+        <option value="Software Problem">Software Problem</option>
+        <option value="Other Repair">Other Repair</option>
+      </select>
+
+      <label for="customerLocation">Customer Location</label>
+
+      <div class="location-row">
         <input
           type="text"
-          id="customerName"
-          name="customerName"
-          placeholder="Enter your name"
+          id="customerLocation"
+          name="customer_location"
+          placeholder="Enter your address"
           required
         >
 
-        <label for="customerPhone">Phone Number</label>
-        <input
-          type="tel"
-          id="customerPhone"
-          name="customerPhone"
-          placeholder="Enter your phone number"
-          required
+        <button
+          type="button"
+          class="location-btn"
+          onclick="getLocation()"
         >
-
-        <label for="mobileModel">Mobile Brand / Model</label>
-        <input
-          type="text"
-          id="mobileModel"
-          name="mobileModel"
-          placeholder="Example: Samsung Galaxy A54"
-          required
-        >
-
-        <label for="repairService">Repair Service</label>
-        <select id="repairService" name="repairService" required>
-          <option value="">Select a repair service</option>
-          <option value="Display Replacement">Display Replacement</option>
-          <option value="Battery Replacement">Battery Replacement</option>
-          <option value="Charging Port Repair">Charging Port Repair</option>
-          <option value="Camera Repair">Camera Repair</option>
-          <option value="Speaker & Microphone">Speaker & Microphone</option>
-          <option value="Software Issues">Software Issues</option>
-          <option value="Motherboard / IC Repair">Motherboard / IC Repair</option>
-          <option value="Other Mobile Repairs">Other Mobile Repairs</option>
-        </select>
-
-        <label for="repairProblem">What is the problem?</label>
-        <textarea
-          id="repairProblem"
-          name="repairProblem"
-          placeholder="Describe the problem with your phone"
-          required
-        ></textarea>
-
-        <label for="customerLocation">Customer Location / Address</label>
-
-        <div class="location-row">
-          <input
-            type="text"
-            id="customerLocation"
-            name="customerLocation"
-            placeholder="Enter your address or landmark"
-            required
-          >
-
-          <button
-            type="button"
-            class="location-btn"
-            onclick="getLocation()"
-          >
-            📍 Use My Location
-          </button>
-        </div>
-
-        <label>Home Pickup Required?</label>
-
-        <div class="pickup-row">
-          <label>
-            <input type="radio" name="pickup" value="Yes" required>
-            Yes
-          </label>
-
-          <label>
-            <input type="radio" name="pickup" value="No">
-            No
-          </label>
-        </div>
-
-        <label for="additionalMessage">Additional Message</label>
-
-        <textarea
-          id="additionalMessage"
-          name="additionalMessage"
-          placeholder="Any additional information (optional)"
-        ></textarea>
-
-        <button type="submit" class="submit-btn">
-          Submit Repair Request
+          Use My Location
         </button>
+      </div>
 
-      </form>
+      <label>Home Pickup Required?</label>
 
-      <a href="index.html" class="back-btn">
-        ← Back to Website
-      </a>
+      <div class="pickup-options">
+        <label>
+          <input
+            type="radio"
+            name="pickup"
+            value="Yes"
+            checked
+          >
+          Yes
+        </label>
 
-      <p class="note">
-        Your repair request will be handled separately from WhatsApp enquiries.
-      </p>
+        <label>
+          <input
+            type="radio"
+            name="pickup"
+            value="No"
+          >
+          No
+        </label>
+      </div>
 
-    </div>
+      <label for="additionalMessage">Additional Message</label>
 
-  </main>
+      <textarea
+        id="additionalMessage"
+        name="additional_message"
+        placeholder="Tell us anything else about the repair..."
+      ></textarea>
+
+      <button
+        type="submit"
+        class="submit-btn"
+        id="submitBtn"
+      >
+        Submit Repair Request
+      </button>
+
+    </form>
+
+    <div id="message"></div>
+
+    <a href="index.html" class="back-btn">
+      ← Back to Website
+    </a>
+
+  </div>
 
   <script>
+    /*
+      SUPABASE CONNECTION
+    */
 
-    // Automatically select the service when the page is opened
-    // like repair.html?service=Display%20Replacement
+    const SUPABASE_URL =
+      "https://gilrmxkflutzbeqlileg.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_cpTh0lXY5b1sVO-JV8hreg_y43eJ7HX";
+
+
+    /*
+      Automatically select repair service
+      when opened like:
+
+      repair.html?service=Display%20Replacement
+    */
 
     const params = new URLSearchParams(window.location.search);
     const selectedService = params.get("service");
 
     if (selectedService) {
-      const serviceSelect = document.getElementById("repairService");
+      const serviceSelect =
+        document.getElementById("repairService");
 
-      for (let option of serviceSelect.options) {
-        if (option.value === selectedService) {
-          serviceSelect.value = selectedService;
+      for (const option of serviceSelect.options) {
+        if (
+          option.value.toLowerCase() ===
+          selectedService.toLowerCase()
+        ) {
+          serviceSelect.value = option.value;
           break;
         }
       }
     }
 
-    // Get customer's current location
+
+    /*
+      GET CURRENT LOCATION
+    */
+
     function getLocation() {
 
-      const locationInput = document.getElementById("customerLocation");
+      const locationInput =
+        document.getElementById("customerLocation");
 
       if (!navigator.geolocation) {
-        alert("Location is not supported by your browser. Please enter your address manually.");
+        alert(
+          "Location is not supported by your browser. Please enter your address manually."
+        );
         return;
       }
 
@@ -328,12 +327,17 @@
 
         function(position) {
 
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
+          const latitude =
+            position.coords.latitude;
+
+          const longitude =
+            position.coords.longitude;
 
           locationInput.value =
-            "GPS Location: " + latitude + ", " + longitude;
-
+            "GPS Location: " +
+            latitude +
+            ", " +
+            longitude;
         },
 
         function() {
@@ -343,22 +347,143 @@
           alert(
             "Unable to get your location. Please allow location permission or enter your address manually."
           );
-
         }
       );
     }
 
-    // Temporary submit handler
-    document.getElementById("repairForm").addEventListener("submit", function(event) {
 
-      event.preventDefault();
+    /*
+      SUBMIT REPAIR REQUEST TO SUPABASE
+    */
 
-      alert(
-        "Your repair form is ready. We will connect this button to the website booking system next."
-      );
+    document
+      .getElementById("repairForm")
+      .addEventListener("submit", async function(event) {
 
-    });
+        event.preventDefault();
 
+        const form = event.target;
+        const submitBtn =
+          document.getElementById("submitBtn");
+
+        const message =
+          document.getElementById("message");
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting...";
+
+        message.style.display = "none";
+
+
+        const formData = new FormData(form);
+
+        const repairRequest = {
+
+          customer_name:
+            formData.get("customer_name"),
+
+          customer_phone:
+            formData.get("customer_phone"),
+
+          mobile_model:
+            formData.get("mobile_model"),
+
+          repair_problem:
+            formData.get("repair_problem"),
+
+          customer_location:
+            formData.get("customer_location"),
+
+          pickup:
+            formData.get("pickup"),
+
+          additional_message:
+            formData.get("additional_message") || ""
+        };
+
+
+        try {
+
+          const response = await fetch(
+            SUPABASE_URL +
+            "/rest/v1/repair_requests",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json",
+
+                "apikey":
+                  SUPABASE_KEY,
+
+                "Authorization":
+                  "Bearer " + SUPABASE_KEY,
+
+                "Prefer":
+                  "return=minimal"
+              },
+
+              body:
+                JSON.stringify(repairRequest)
+            }
+          );
+
+
+          if (!response.ok) {
+
+            const errorText =
+              await response.text();
+
+            throw new Error(errorText);
+          }
+
+
+          /*
+            SUCCESS
+          */
+
+          message.className =
+            "success";
+
+          message.textContent =
+            "✅ Repair request submitted successfully! We will contact you shortly.";
+
+          message.style.display =
+            "block";
+
+          form.reset();
+
+
+          /*
+            Keep default pickup selection
+          */
+
+          document.querySelector(
+            'input[name="pickup"][value="Yes"]'
+          ).checked = true;
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          message.className =
+            "error";
+
+          message.textContent =
+            "❌ Something went wrong. Please try again.";
+
+          message.style.display =
+            "block";
+        }
+
+
+        submitBtn.disabled = false;
+        submitBtn.textContent =
+          "Submit Repair Request";
+
+      });
   </script>
 
 </body>
