@@ -1,1290 +1,1007 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>Book a Repair - Sidhardha Mobile Repairing Service</title>
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Customer Dashboard</title>
-
-<style>
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #080b10;
-    color: #ffffff;
-}
-
-.header {
-    background: #111820;
-    border-bottom: 1px solid #293646;
-    padding: 18px 20px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    gap: 12px;
-
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.header h1 {
-    margin: 0;
-    font-size: 23px;
-}
-
-.header-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-button,
-a {
-    font-family: inherit;
-}
-
-.refresh-btn,
-.logout-btn,
-.repair-btn,
-.back-btn {
-    border: none;
-    border-radius: 10px;
-    padding: 11px 15px;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.refresh-btn {
-    background: #1976d2;
-    color: white;
-}
-
-.logout-btn {
-    background: #d32f2f;
-    color: white;
-}
-
-.container {
-    max-width: 1050px;
-    margin: auto;
-    padding: 22px 18px 50px;
-}
-
-.profile {
-    background: #111820;
-    border: 1px solid #293646;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.profile h2 {
-    margin: 0 0 8px;
-    font-size: 20px;
-}
-
-.profile-email {
-    color: #9da8b4;
-    word-break: break-word;
-}
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 22px;
-}
-
-.stat {
-    background: #111820;
-    border: 1px solid #293646;
-    border-radius: 14px;
-    padding: 18px;
-    text-align: center;
-}
-
-.stat-number {
-    font-size: 29px;
-    font-weight: bold;
-}
-
-.stat-title {
-    margin-top: 5px;
-    color: #9da8b4;
-}
-
-.section-title {
-    font-size: 21px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.booking {
-    background: #111820;
-    border: 1px solid #293646;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 18px;
-}
-
-.booking-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 15px;
-    margin-bottom: 18px;
-}
-
-.booking-name {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.booking-date {
-    margin-top: 5px;
-    color: #9da8b4;
-    font-size: 13px;
-}
-
-.booking-id {
-    margin-top: 4px;
-    color: #687789;
-    font-size: 11px;
-    word-break: break-all;
-}
-
-.status {
-    padding: 9px 13px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 13px;
-    white-space: nowrap;
-}
-
-.status-pending {
-    background: #493b12;
-    color: #ffd666;
-}
-
-.status-confirmed {
-    background: #123d5c;
-    color: #70c7ff;
-}
-
-.status-in-repair {
-    background: #4a2b08;
-    color: #ffb454;
-}
-
-.status-completed {
-    background: #123d20;
-    color: #7ee787;
-}
-
-.status-cancelled {
-    background: #49171a;
-    color: #ff8b88;
-}
-
-.details {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-.detail {
-    background: #0c1117;
-    border-radius: 10px;
-    padding: 12px;
-}
-
-.detail-label {
-    color: #8995a3;
-    font-size: 12px;
-    margin-bottom: 5px;
-}
-
-.detail-value {
-    font-size: 15px;
-    word-break: break-word;
-    white-space: pre-wrap;
-}
-
-.status-info {
-    margin-top: 18px;
-    padding-top: 18px;
-    border-top: 1px solid #293646;
-}
-
-.status-info-title {
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.status-message {
-    color: #a9b7c8;
-    font-size: 14px;
-}
-
-.loading,
-.empty,
-.error {
-    background: #111820;
-    border: 1px solid #293646;
-    border-radius: 14px;
-    padding: 35px 18px;
-    text-align: center;
-}
-
-.empty {
-    color: #9da8b4;
-}
-
-.error {
-    color: #ff8b88;
-    line-height: 1.5;
-}
-
-.actions {
-    display: flex;
-    justify-content: center;
-    margin-top: 25px;
-}
-
-.repair-btn {
-    background: #238636;
-    color: white;
-}
-
-.back-btn {
-    display: inline-block;
-    margin-top: 12px;
-    background: #293646;
-    color: white;
-}
-
-.message {
-    display: none;
-    margin-bottom: 18px;
-    padding: 13px;
-    border-radius: 10px;
-    text-align: center;
-    line-height: 1.5;
-}
-
-.message.error {
-    display: block;
-    background: #3b1616;
-    border: 1px solid #da3633;
-    color: #ff8b88;
-}
-
-@media (max-width: 700px) {
-
-    .header {
-        flex-direction: column;
-        align-items: stretch;
+  <style>
+    * {
+      box-sizing: border-box;
     }
 
-    .header h1 {
-        text-align: center;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0f14;
+      color: #ffffff;
     }
 
-    .header-buttons {
-        justify-content: center;
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 25px 18px 50px;
     }
 
-    .refresh-btn,
-    .logout-btn {
-        flex: 1;
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
     }
 
-    .stats {
-        grid-template-columns: 1fr 1fr;
+    .subtitle {
+      text-align: center;
+      color: #aab2bd;
+      margin-bottom: 30px;
+      line-height: 1.5;
     }
 
-    .details {
-        grid-template-columns: 1fr;
+    label {
+      display: block;
+      margin: 18px 0 8px;
+      font-weight: bold;
     }
 
-    .booking-header {
-        flex-direction: column;
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #344154;
+      background: #111821;
+      color: white;
+      font-size: 16px;
+      outline: none;
     }
 
-}
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #238636;
+    }
 
-</style>
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
 
+    .location-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .location-row input {
+      flex: 1;
+    }
+
+    .location-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 0 16px;
+      background: #1769aa;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .pickup-options {
+      display: flex;
+      gap: 35px;
+      margin-top: 10px;
+    }
+
+    .pickup-options label {
+      margin: 0;
+      font-weight: normal;
+    }
+
+    .pickup-options input {
+      width: auto;
+      margin-right: 8px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 28px;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #238636;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #58a6ff;
+      text-decoration: none;
+    }
+
+    #message {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 12px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .success {
+      background: #12351d;
+      color: #7ee787;
+      border: 1px solid #238636;
+    }
+
+    .error {
+      background: #3b1616;
+      color: #ff7b72;
+      border: 1px solid #da3633;
+    }
+
+    .booking-id {
+      display: block;
+      margin: 10px 0;
+      font-size: 25px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #ffffff;
+    }
+
+    .sms-note {
+      display: block;
+      margin-top: 8px;
+      color: #aab2bd;
+      font-size: 14px;
+    }
+  </style>
 </head>
 
 <body>
 
+  <div class="container">
 
-<header class="header">
+    <h1>Book a Repair</h1>
 
-    <h1>
-        👤 Customer Dashboard
-    </h1>
+    <p class="subtitle">
+      Tell us about your device and repair requirement.
+    </p>
 
-    <div class="header-buttons">
+    <form id="repairForm">
+
+      <!-- CUSTOMER NAME -->
+      <label for="customerName">Customer Name</label>
+
+      <input
+        type="text"
+        id="customerName"
+        name="customer_name"
+        placeholder="Enter your name"
+        required
+      >
+
+
+      <!-- PHONE -->
+      <label for="customerPhone">Phone Number</label>
+
+      <input
+        type="tel"
+        id="customerPhone"
+        name="customer_phone"
+        placeholder="Enter your phone number"
+        inputmode="numeric"
+        required
+      >
+
+
+      <!-- MOBILE MODEL -->
+      <label for="mobileModel">Mobile Model</label>
+
+      <input
+        type="text"
+        id="mobileModel"
+        name="mobile_model"
+        placeholder="Example: iPhone 13 / Samsung S23"
+        required
+      >
+
+
+      <!-- REPAIR SERVICE -->
+      <label for="repairService">Repair Service</label>
+
+      <select
+        id="repairService"
+        name="repair_service"
+        required
+      >
+        <option value="">Select repair service</option>
+
+        <option value="Display Replacement">
+          Display Replacement
+        </option>
+
+        <option value="Battery Replacement">
+          Battery Replacement
+        </option>
+
+        <option value="Charging Problem">
+          Charging Problem
+        </option>
+
+        <option value="Speaker / Mic Problem">
+          Speaker / Mic Problem
+        </option>
+
+        <option value="Camera Problem">
+          Camera Problem
+        </option>
+
+        <option value="Water Damage">
+          Water Damage
+        </option>
+
+        <option value="Software Problem">
+          Software Problem
+        </option>
+
+        <option value="Other Repair">
+          Other Repair
+        </option>
+      </select>
+
+
+      <!-- REPAIR PROBLEM -->
+      <label for="repairProblem">
+        Repair Problem
+      </label>
+
+      <textarea
+        id="repairProblem"
+        name="repair_problem"
+        placeholder="Tell us what is wrong with the phone..."
+        required
+      ></textarea>
+
+
+      <!-- LOCATION -->
+      <label for="customerLocation">
+        Customer Location
+      </label>
+
+      <div class="location-row">
+
+        <input
+          type="text"
+          id="customerLocation"
+          name="customer_location"
+          placeholder="Enter your address"
+          required
+        >
 
         <button
-            type="button"
-            class="refresh-btn"
-            id="refreshBtn"
+          type="button"
+          class="location-btn"
+          onclick="getLocation()"
         >
-            🔄 Refresh
+          Use My Location
         </button>
 
-        <button
-            type="button"
-            class="logout-btn"
-            id="logoutBtn"
-        >
-            🚪 Logout
-        </button>
+      </div>
 
-    </div>
 
-</header>
+      <!-- PICKUP -->
+      <label>
+        Home Pickup Required?
+      </label>
 
+      <div class="pickup-options">
 
-<div class="container">
+        <label>
+          <input
+            type="radio"
+            name="pickup"
+            value="Yes"
+            checked
+          >
+          Yes
+        </label>
 
+        <label>
+          <input
+            type="radio"
+            name="pickup"
+            value="No"
+          >
+          No
+        </label>
 
-    <div
-        id="message"
-        class="message"
-    ></div>
+      </div>
 
 
-    <div class="profile">
+      <!-- ADDITIONAL MESSAGE -->
+      <label for="additionalMessage">
+        Additional Message
+      </label>
 
-        <h2>
-            Welcome 👋
-        </h2>
+      <textarea
+        id="additionalMessage"
+        name="additional_message"
+        placeholder="Tell us anything else about the repair..."
+      ></textarea>
 
-        <div
-            class="profile-email"
-            id="customerEmail"
-        >
-            Loading account...
-        </div>
 
-    </div>
+      <!-- SUBMIT -->
+      <button
+        type="submit"
+        class="submit-btn"
+        id="submitBtn"
+      >
+        Submit Repair Request
+      </button>
 
+    </form>
 
-    <div class="stats">
 
-        <div class="stat">
+    <!-- SUCCESS / ERROR MESSAGE -->
+    <div id="message"></div>
 
-            <div
-                class="stat-number"
-                id="totalCount"
-            >
-                0
-            </div>
 
-            <div class="stat-title">
-                My Bookings
-            </div>
+    <a
+      href="index.html"
+      class="back-btn"
+    >
+      ← Back to Website
+    </a>
 
-        </div>
+  </div>
 
 
-        <div class="stat">
+  <script>
 
-            <div
-                class="stat-number"
-                id="activeCount"
-            >
-                0
-            </div>
+    /*
+      ==========================================
+      SUPABASE CONNECTION
+      ==========================================
+    */
 
-            <div class="stat-title">
-                Active
-            </div>
+    const SUPABASE_URL =
+      "https://gilrmxkflutzbeqlileg.supabase.co";
 
-        </div>
+    const SUPABASE_KEY =
+      "sb_publishable_cpTh0lXY5b1sVO-JV8hreg_y43eJ7HX";
 
 
-        <div class="stat">
+    /*
+      ==========================================
+      SMS EDGE FUNCTION
+      ==========================================
 
-            <div
-                class="stat-number"
-                id="completedCount"
-            >
-                0
-            </div>
+      We will create this function in Supabase
+      in the next step.
 
-            <div class="stat-title">
-                Completed
-            </div>
+      Function name:
+      send-booking-sms
+    */
 
-        </div>
+    const SMS_FUNCTION_URL =
+      SUPABASE_URL +
+      "/functions/v1/send-booking-sms";
 
-    </div>
 
+    /*
+      ==========================================
+      SERVICE FROM URL
+      ==========================================
 
-    <div class="section-title">
-        📱 My Repair Bookings
-    </div>
+      Example:
 
+      Customer.html?service=Display%20Replacement
+    */
 
-    <div id="bookings">
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
 
-        <div class="loading">
-            Loading your bookings...
-        </div>
+    const selectedService =
+      params.get("service");
 
-    </div>
+    if (selectedService) {
 
-
-    <div class="actions">
-
-        <div>
-
-            <a
-                href="Repair.html"
-                class="repair-btn"
-            >
-                📱 Book a New Repair
-            </a>
-
-            <br>
-
-            <a
-                href="index.html"
-                class="back-btn"
-            >
-                ← Back to Website
-            </a>
-
-        </div>
-
-    </div>
-
-
-</div>
-
-
-<script>
-
-/* =====================================================
-   SUPABASE
-===================================================== */
-
-const SUPABASE_URL =
-    "https://gilrmxkflutzbeqlileg.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_cpTh0lXY5b1sVO-JV8hreg_y43eJ7HX";
-
-
-/* =====================================================
-   LOGIN SESSION
-===================================================== */
-
-const accessToken =
-    localStorage.getItem(
-        "supabase_access_token"
-    );
-
-const userRole =
-    localStorage.getItem(
-        "user_role"
-    );
-
-const savedEmail =
-    localStorage.getItem(
-        "user_email"
-    );
-
-const savedUserId =
-    localStorage.getItem(
-        "user_id"
-    );
-
-
-/* =====================================================
-   SECURITY CHECK
-===================================================== */
-
-if (
-    !accessToken ||
-    userRole !== "customer"
-) {
-
-    window.location.href =
-        "Login.html";
-
-}
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const bookingsContainer =
-    document.getElementById(
-        "bookings"
-    );
-
-const refreshBtn =
-    document.getElementById(
-        "refreshBtn"
-    );
-
-const logoutBtn =
-    document.getElementById(
-        "logoutBtn"
-    );
-
-const customerEmail =
-    document.getElementById(
-        "customerEmail"
-    );
-
-const totalCount =
-    document.getElementById(
-        "totalCount"
-    );
-
-const activeCount =
-    document.getElementById(
-        "activeCount"
-    );
-
-const completedCount =
-    document.getElementById(
-        "completedCount"
-    );
-
-const message =
-    document.getElementById(
-        "message"
-    );
-
-
-/* =====================================================
-   SHOW ACCOUNT
-===================================================== */
-
-customerEmail.textContent =
-    savedEmail ||
-    "Customer account";
-
-
-/* =====================================================
-   HEADERS
-===================================================== */
-
-function getHeaders() {
-
-    return {
-
-        "Content-Type":
-            "application/json",
-
-        "apikey":
-            SUPABASE_KEY,
-
-        "Authorization":
-            "Bearer " + accessToken,
-
-        "Prefer":
-            "return=representation"
-
-    };
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value) {
-
-    if (
-        value === null ||
-        value === undefined
-    ) {
-
-        return "—";
-
-    }
-
-    return String(value)
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-        .replaceAll(
-            "'",
-            "&#039;"
+      const serviceSelect =
+        document.getElementById(
+          "repairService"
         );
 
-}
-
-
-/* =====================================================
-   NORMALIZE STATUS
-===================================================== */
-
-function normalizeStatus(status) {
-
-    const value =
-        String(
-            status ||
-            "pending"
-        )
-        .toLowerCase()
-        .trim();
-
-
-    if (
-        value === "in repair" ||
-        value === "repair"
-    ) {
-
-        return "in_repair";
-
-    }
-
-
-    if (
-        value === "complete"
-    ) {
-
-        return "completed";
-
-    }
-
-
-    if (
-        value === "canceled"
-    ) {
-
-        return "cancelled";
-
-    }
-
-
-    return value;
-
-}
-
-
-/* =====================================================
-   DISPLAY STATUS
-===================================================== */
-
-function displayStatus(status) {
-
-    const value =
-        normalizeStatus(status);
-
-
-    if (
-        value === "confirmed"
-    ) {
-
-        return "Confirmed";
-
-    }
-
-
-    if (
-        value === "in_repair"
-    ) {
-
-        return "In Repair";
-
-    }
-
-
-    if (
-        value === "completed"
-    ) {
-
-        return "Completed";
-
-    }
-
-
-    if (
-        value === "cancelled"
-    ) {
-
-        return "Cancelled";
-
-    }
-
-
-    return "Pending";
-
-}
-
-
-/* =====================================================
-   STATUS CLASS
-===================================================== */
-
-function statusClass(status) {
-
-    const value =
-        normalizeStatus(status);
-
-
-    if (
-        value === "confirmed"
-    ) {
-
-        return "status-confirmed";
-
-    }
-
-
-    if (
-        value === "in_repair"
-    ) {
-
-        return "status-in-repair";
-
-    }
-
-
-    if (
-        value === "completed"
-    ) {
-
-        return "status-completed";
-
-    }
-
-
-    if (
-        value === "cancelled"
-    ) {
-
-        return "status-cancelled";
-
-    }
-
-
-    return "status-pending";
-
-}
-
-
-/* =====================================================
-   DATE
-===================================================== */
-
-function formatDate(value) {
-
-    if (!value) {
-
-        return "Date not available";
-
-    }
-
-    try {
-
-        const date =
-            new Date(value);
-
+      for (
+        const option of serviceSelect.options
+      ) {
 
         if (
-            Number.isNaN(
-                date.getTime()
-            )
+          option.value.toLowerCase() ===
+          selectedService.toLowerCase()
         ) {
 
-            return value;
+          serviceSelect.value =
+            option.value;
 
+          break;
         }
+      }
+    }
 
 
-        return date.toLocaleString(
-            "en-IN",
-            {
-                day: "2-digit",
-                month: "short",
-                year: "numeric",
-                hour: "2-digit",
-                minute: "2-digit"
-            }
+    /*
+      ==========================================
+      GET CUSTOMER LOCATION
+      ==========================================
+    */
+
+    function getLocation() {
+
+      const locationInput =
+        document.getElementById(
+          "customerLocation"
         );
 
-    } catch (error) {
+      if (!navigator.geolocation) {
 
-        return value;
+        alert(
+          "Location is not supported by your browser. Please enter your address manually."
+        );
 
-    }
+        return;
+      }
 
-}
+      locationInput.value =
+        "Getting your location...";
 
+      navigator.geolocation.getCurrentPosition(
 
-/* =====================================================
-   STATUS MESSAGE
-===================================================== */
+        function(position) {
 
-function statusMessage(status) {
+          const latitude =
+            position.coords.latitude;
 
-    const value =
-        normalizeStatus(status);
+          const longitude =
+            position.coords.longitude;
 
+          locationInput.value =
+            "GPS Location: " +
+            latitude +
+            ", " +
+            longitude;
+        },
 
-    if (
-        value === "confirmed"
-    ) {
+        function() {
 
-        return "Your repair request has been confirmed by the owner.";
+          locationInput.value = "";
 
-    }
+          alert(
+            "Unable to get your location. Please allow location permission or enter your address manually."
+          );
+        }
 
-
-    if (
-        value === "in_repair"
-    ) {
-
-        return "Your phone is currently being repaired.";
-
-    }
-
-
-    if (
-        value === "completed"
-    ) {
-
-        return "Your repair has been completed.";
-
+      );
     }
 
 
-    if (
-        value === "cancelled"
-    ) {
+    /*
+      ==========================================
+      FORM SUBMISSION
+      ==========================================
+    */
 
-        return "This repair request has been cancelled. Please contact us if you need help.";
+    document
+      .getElementById("repairForm")
+      .addEventListener(
+        "submit",
+        async function(event) {
 
-    }
-
-
-    return "Your repair request has been received and is waiting for confirmation.";
-
-}
-
-
-/* =====================================================
-   SHOW ERROR
-===================================================== */
-
-function showError(text) {
-
-    message.className =
-        "message error";
-
-    message.textContent =
-        "❌ " + text;
-
-}
+          event.preventDefault();
 
 
-/* =====================================================
-   CLEAR ERROR
-===================================================== */
+          const form =
+            event.target;
 
-function clearError() {
+          const submitBtn =
+            document.getElementById(
+              "submitBtn"
+            );
 
-    message.className =
-        "message";
-
-    message.textContent =
-        "";
-
-}
-
-
-/* =====================================================
-   LOAD BOOKINGS
-===================================================== */
-
-async function loadBookings() {
-
-    clearError();
+          const message =
+            document.getElementById(
+              "message"
+            );
 
 
-    bookingsContainer.innerHTML =
-        `
-        <div class="loading">
-            Loading your bookings...
-        </div>
-        `;
+          submitBtn.disabled =
+            true;
+
+          submitBtn.textContent =
+            "Submitting...";
+
+          message.style.display =
+            "none";
 
 
-    try {
+          /*
+            GET FORM DATA
+          */
 
-        const response =
-            await fetch(
+          const formData =
+            new FormData(form);
+
+
+          /*
+            BUILD DATABASE RECORD
+          */
+
+          const repairRequest = {
+
+            customer_name:
+              formData.get(
+                "customer_name"
+              ),
+
+            customer_phone:
+              formData.get(
+                "customer_phone"
+              ),
+
+            mobile_model:
+              formData.get(
+                "mobile_model"
+              ),
+
+            repair_service:
+              formData.get(
+                "repair_service"
+              ),
+
+            repair_problem:
+              formData.get(
+                "repair_problem"
+              ),
+
+            customer_location:
+              formData.get(
+                "customer_location"
+              ),
+
+            pickup:
+              formData.get(
+                "pickup"
+              ),
+
+            additional_message:
+              formData.get(
+                "additional_message"
+              )
+          };
+
+
+          /*
+            BASIC VALIDATION
+          */
+
+          if (
+            !repairRequest.customer_name
+          ) {
+
+            showError(
+              "Please enter customer name."
+            );
+
+            return;
+          }
+
+
+          if (
+            !repairRequest.customer_phone
+          ) {
+
+            showError(
+              "Please enter phone number."
+            );
+
+            return;
+          }
+
+
+          if (
+            !repairRequest.mobile_model
+          ) {
+
+            showError(
+              "Please enter mobile model."
+            );
+
+            return;
+          }
+
+
+          if (
+            !repairRequest.repair_service
+          ) {
+
+            showError(
+              "Please select a repair service."
+            );
+
+            return;
+          }
+
+
+          if (
+            !repairRequest.repair_problem
+          ) {
+
+            showError(
+              "Please enter the repair problem."
+            );
+
+            return;
+          }
+
+
+          if (
+            !repairRequest.customer_location
+          ) {
+
+            showError(
+              "Please enter your location."
+            );
+
+            return;
+          }
+
+
+          /*
+            ======================================
+            INSERT INTO SUPABASE
+            ======================================
+
+            IMPORTANT:
+
+            We use:
+
+            Prefer: return=representation
+
+            so Supabase sends the newly-created
+            row back to the website.
+
+            This gives us the database ID.
+          */
+
+          try {
+
+            const response =
+              await fetch(
+
                 SUPABASE_URL +
-                "/rest/v1/repair_requests?select=*&order=created_at.desc",
+                "/rest/v1/repair_requests",
+
                 {
-                    method: "GET",
-                    headers:
-                        getHeaders()
+
+                  method: "POST",
+
+                  headers: {
+
+                    "Content-Type":
+                      "application/json",
+
+                    "apikey":
+                      SUPABASE_KEY,
+
+                    "Authorization":
+                      "Bearer " +
+                      SUPABASE_KEY,
+
+                    "Prefer":
+                      "return=representation"
+                  },
+
+                  body:
+                    JSON.stringify(
+                      repairRequest
+                    )
                 }
-            );
+              );
 
 
-        const text =
-            await response.text();
+            /*
+              CHECK DATABASE RESPONSE
+            */
 
+            if (!response.ok) {
 
-        let data = [];
+              const errorText =
+                await response.text();
 
+              throw new Error(
+                errorText ||
+                "Unable to submit repair request."
+              );
+            }
 
-        try {
 
-            data =
-                text
-                    ? JSON.parse(text)
-                    : [];
+            /*
+              GET CREATED ROW
+            */
 
-        } catch (error) {
+            const createdRows =
+              await response.json();
 
-            throw new Error(
-                "Invalid response from Supabase."
-            );
 
-        }
+            if (
+              !Array.isArray(createdRows) ||
+              createdRows.length === 0
+            ) {
 
+              throw new Error(
+                "Booking was created but Booking ID could not be received."
+              );
+            }
 
-        if (!response.ok) {
 
-            throw new Error(
-                data?.message ||
-                data?.hint ||
-                text ||
-                "Unable to load bookings."
-            );
+            /*
+              GET DATABASE ID
+            */
 
-        }
+            const bookingDatabaseId =
+              createdRows[0].id;
 
 
-        if (!Array.isArray(data)) {
+            /*
+              CREATE CUSTOMER-FRIENDLY
+              BOOKING ID
 
-            throw new Error(
-                "Unexpected booking response."
-            );
+              Example:
 
-        }
+              Database ID: 37
 
+              Booking ID:
+              SR-00037
+            */
 
-        /*
-         * CURRENT DATABASE STRUCTURE
-         *
-         * Repair.html currently stores:
-         *
-         * customer_name
-         * customer_phone
-         * mobile_model
-         * repair_service
-         * repair_problem
-         * customer_location
-         * pickup
-         * additional_message
-         *
-         * It does NOT currently store user_id.
-         *
-         * Therefore this page first tries to match
-         * the logged-in account using fields that may
-         * be available in the booking.
-         */
+            const bookingId =
+              "SR-" +
+              String(
+                bookingDatabaseId
+              ).padStart(5, "0");
 
-        const filtered =
-            filterCustomerBookings(
-                data
-            );
 
+            /*
+              ======================================
+              SHOW SUCCESS MESSAGE
+              ======================================
+            */
 
-        renderBookings(
-            filtered
-        );
+            message.className =
+              "success";
 
+            message.innerHTML =
 
-    } catch (error) {
+              "✅ Repair booking successful!" +
 
-        console.error(
-            "CUSTOMER BOOKINGS ERROR:",
-            error
-        );
+              "<span class='booking-id'>" +
 
+              "Booking ID: " +
 
-        bookingsContainer.innerHTML =
-            `
-            <div class="error">
+              bookingId +
 
-                ❌ Unable to load your bookings.
+              "</span>" +
 
-                <br><br>
+              "<span>" +
 
-                ${escapeHtml(
-                    error.message
-                )}
+              "Please keep this Booking ID for future reference." +
 
-            </div>
-            `;
+              "</span>" +
 
+              "<span class='sms-note'>" +
 
-        totalCount.textContent =
-            "0";
+              "📱 Confirmation SMS is being sent to your phone." +
 
-        activeCount.textContent =
-            "0";
+              "</span>";
 
-        completedCount.textContent =
-            "0";
+            message.style.display =
+              "block";
 
-    }
 
-}
+            /*
+              ======================================
+              SEND SMS
+              ======================================
 
+              IMPORTANT:
 
-/* =====================================================
-   FILTER CUSTOMER BOOKINGS
-===================================================== */
+              The Edge Function will be created
+              in Supabase next.
 
-function filterCustomerBookings(
-    bookings
-) {
+              If SMS fails, the booking itself
+              remains successful.
+            */
 
-    /*
-     * If future Repair.html adds user_id,
-     * this will use it automatically.
-     */
+            try {
 
-    if (savedUserId) {
+              const smsResponse =
+                await fetch(
+                  SMS_FUNCTION_URL,
+                  {
 
-        const userIdMatches =
-            bookings.filter(
-                function (booking) {
+                    method: "POST",
 
-                    return (
-                        booking.user_id ===
-                        savedUserId
-                    );
+                    headers: {
 
-                }
-            );
+                      "Content-Type":
+                        "application/json",
 
+                      "apikey":
+                        SUPABASE_KEY,
 
-        if (
-            userIdMatches.length > 0
-        ) {
+                      "Authorization":
+                        "Bearer " +
+                        SUPABASE_KEY
+                    },
 
-            return userIdMatches;
+                    body:
+                      JSON.stringify({
 
-        }
+                        booking_id:
+                          bookingId,
 
-    }
+                        customer_name:
+                          repairRequest.customer_name,
 
+                        customer_phone:
+                          repairRequest.customer_phone,
 
-    /*
-     * Fallback to email if the database
-     * later contains customer_email.
-     */
+                        mobile_model:
+                          repairRequest.mobile_model,
 
-    if (savedEmail) {
-
-        const emailMatches =
-            bookings.filter(
-                function (booking) {
-
-                    return (
-                        booking.customer_email &&
-                        String(
-                            booking.customer_email
-                        ).toLowerCase() ===
-                        String(
-                            savedEmail
-                        ).toLowerCase()
-                    );
-
-                }
-            );
-
-
-        if (
-            emailMatches.length > 0
-        ) {
-
-            return emailMatches;
-
-        }
-
-    }
-
-
-    /*
-     * IMPORTANT:
-     *
-     * Current Repair.html does not save
-     * user_id or customer_email.
-     *
-     * Therefore we cannot safely identify
-     * a customer's bookings by account yet.
-     *
-     * Return an empty list instead of
-     * accidentally showing another customer's
-     * private booking.
-     */
-
-    return [];
-
-}
-
-
-/* =====================================================
-   UPDATE COUNTERS
-===================================================== */
-
-function updateCounters(
-    bookings
-) {
-
-    totalCount.textContent =
-        bookings.length;
-
-
-    let active = 0;
-
-    let completed = 0;
-
-
-    bookings.forEach(
-        function (booking) {
-
-            const status =
-                normalizeStatus(
-                    booking.status
+                        repair_service:
+                          repairRequest.repair_service
+                      })
+                  }
                 );
 
 
-            if (
-                status === "pending" ||
-                status === "confirmed" ||
-                status === "in_repair"
-            ) {
+              if (!smsResponse.ok) {
 
-                active++;
+                console.warn(
+                  "SMS sending failed."
+                );
+              }
+
+            }
+
+            catch (smsError) {
+
+              console.warn(
+                "SMS function unavailable:",
+                smsError
+              );
 
             }
 
 
-            if (
-                status === "completed"
-            ) {
+            /*
+              RESET FORM
+            */
 
-                completed++;
+            form.reset();
 
+
+            /*
+              KEEP HOME PICKUP = YES
+            */
+
+            const yesPickup =
+              document.querySelector(
+                'input[name="pickup"][value="Yes"]'
+              );
+
+            if (yesPickup) {
+
+              yesPickup.checked =
+                true;
             }
+
+
+            /*
+              KEEP SUCCESS MESSAGE
+              VISIBLE AFTER RESET
+            */
+
+            message.style.display =
+              "block";
+
+          }
+
+          catch (error) {
+
+            console.error(
+              "SUPABASE ERROR:",
+              error
+            );
+
+
+            message.className =
+              "error";
+
+            message.textContent =
+              "❌ " +
+              (
+                error.message ||
+                "Something went wrong."
+              );
+
+            message.style.display =
+              "block";
+          }
+
+
+          /*
+            ENABLE BUTTON AGAIN
+          */
+
+          submitBtn.disabled =
+            false;
+
+          submitBtn.textContent =
+            "Submit Repair Request";
 
         }
-    );
+      );
 
 
-    activeCount.textContent =
-        active;
+    /*
+      ==========================================
+      SHOW ERROR
+      ==========================================
+    */
 
-    completedCount.textContent =
-        completed;
+    function showError(text) {
 
-}
+      const message =
+        document.getElementById(
+          "message"
+        );
 
-
-/* =====================================================
-   RENDER BOOKINGS
-===================================================== */
-
-function renderBookings(
-    bookings
-) {
-
-    updateCounters(
-        bookings
-    );
+      const submitBtn =
+        document.getElementById(
+          "submitBtn"
+        );
 
 
-    if (
-        bookings.length === 0
-    ) {
+      message.className =
+        "error";
 
-        bookingsContainer.innerHTML =
-            `
-            <div class="empty">
+      message.textContent =
+        "❌ " + text;
 
-                📭 No bookings are linked
-                to this customer account yet.
+      message.style.display =
+        "block";
 
-                <br><br>
 
-                Once your booking is connected
-                to your customer account,
-                it will appear here.
+      submitBtn.disabled =
+        false;
 
-            </div>
-            `;
-
-        return;
-
+      submitBtn.textContent =
+        "Submit Repair Request";
     }
 
+  </script>
 
-    bookingsContainer.innerHTML =
-        bookings
-            .map(
-                function (booking) {
-
-                    return createBooking(
-                        booking
-                    );
-
-                }
-            )
-            .join("");
-
-}
-
-
-/* =====================================================
-   CREATE BOOKING
-==============================
+</body>
+</html>
