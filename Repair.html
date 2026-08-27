@@ -80,6 +80,7 @@
       background: #1769aa;
       color: white;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .pickup-options {
@@ -186,7 +187,9 @@
       >
 
       <label for="repairService">Repair Service</label>
-      <select id="repairService" name="repair_problem" required>
+
+      <!-- FIXED: this must be repair_service -->
+      <select id="repairService" name="repair_service" required>
         <option value="">Select repair service</option>
         <option value="Display Replacement">Display Replacement</option>
         <option value="Battery Replacement">Battery Replacement</option>
@@ -198,9 +201,19 @@
         <option value="Other Repair">Other Repair</option>
       </select>
 
+      <label for="repairProblem">Repair Problem</label>
+
+      <textarea
+        id="repairProblem"
+        name="repair_problem"
+        placeholder="Tell us what is wrong with the phone..."
+        required
+      ></textarea>
+
       <label for="customerLocation">Customer Location</label>
 
       <div class="location-row">
+
         <input
           type="text"
           id="customerLocation"
@@ -216,11 +229,13 @@
         >
           Use My Location
         </button>
+
       </div>
 
       <label>Home Pickup Required?</label>
 
       <div class="pickup-options">
+
         <label>
           <input
             type="radio"
@@ -239,6 +254,7 @@
           >
           No
         </label>
+
       </div>
 
       <label for="additionalMessage">Additional Message</label>
@@ -268,6 +284,7 @@
   </div>
 
   <script>
+
     /*
       SUPABASE CONNECTION
     */
@@ -286,19 +303,27 @@
       repair.html?service=Display%20Replacement
     */
 
-    const params = new URLSearchParams(window.location.search);
-    const selectedService = params.get("service");
+    const params =
+      new URLSearchParams(window.location.search);
+
+    const selectedService =
+      params.get("service");
 
     if (selectedService) {
+
       const serviceSelect =
         document.getElementById("repairService");
 
       for (const option of serviceSelect.options) {
+
         if (
           option.value.toLowerCase() ===
           selectedService.toLowerCase()
         ) {
-          serviceSelect.value = option.value;
+
+          serviceSelect.value =
+            option.value;
+
           break;
         }
       }
@@ -315,13 +340,16 @@
         document.getElementById("customerLocation");
 
       if (!navigator.geolocation) {
+
         alert(
           "Location is not supported by your browser. Please enter your address manually."
         );
+
         return;
       }
 
-      locationInput.value = "Getting your location...";
+      locationInput.value =
+        "Getting your location...";
 
       navigator.geolocation.getCurrentPosition(
 
@@ -358,135 +386,274 @@
 
     document
       .getElementById("repairForm")
-      .addEventListener("submit", async function(event) {
+      .addEventListener(
+        "submit",
+        async function(event) {
 
-        event.preventDefault();
+          event.preventDefault();
 
-        const form = event.target;
-        const submitBtn =
-          document.getElementById("submitBtn");
+          const form =
+            event.target;
 
-        const message =
-          document.getElementById("message");
+          const submitBtn =
+            document.getElementById("submitBtn");
 
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Submitting...";
+          const message =
+            document.getElementById("message");
 
-        message.style.display = "none";
+          submitBtn.disabled =
+            true;
 
+          submitBtn.textContent =
+            "Submitting...";
 
-        const formData = new FormData(form);
-
-        const repairRequest = {
-    customer_name:
-        formData.get("customer_name"),
-
-    customer_phone:
-        formData.get("customer_phone"),
-
-    mobile_model:
-        formData.get("mobile_model"),
-
-    repair_service:
-        formData.get("repair_service"),
-
-    repair_problem:
-        formData.get("repair_problem"),
-
-  
-
-customer_location:
-    formData.get("customer_location"),
-
-pickup:
-    formData.get("pickup"),
-additional_message:
-    formData.get("additional_message")
-    
-};
+          message.style.display =
+            "none";
 
 
+          /*
+            GET FORM DATA
+          */
 
-        try {
-
-          const response = await fetch(
-            SUPABASE_URL +
-            "/rest/v1/repair_requests",
-            {
-              method: "POST",
-
-              headers: {
-                "Content-Type":
-                  "application/json",
-
-                "apikey":
-                  SUPABASE_KEY,
-
-                "Authorization":
-                  "Bearer " + SUPABASE_KEY,
-
-                "Prefer":
-                  "return=minimal"
-              },
-
-              body:
-                JSON.stringify(repairRequest)
-            }
-          );
+          const formData =
+            new FormData(form);
 
 
-          if (!response.ok) {
+          /*
+            BUILD REPAIR REQUEST
 
-            const errorText =
-              await response.text();
+            IMPORTANT:
+            Every name here matches
+            the HTML form field exactly.
+          */
 
-            throw new Error(errorText);
+          const repairRequest = {
+
+            customer_name:
+              formData.get("customer_name"),
+
+            customer_phone:
+              formData.get("customer_phone"),
+
+            mobile_model:
+              formData.get("mobile_model"),
+
+            repair_service:
+              formData.get("repair_service"),
+
+            repair_problem:
+              formData.get("repair_problem"),
+
+            customer_location:
+              formData.get("customer_location"),
+
+            pickup:
+              formData.get("pickup"),
+
+            additional_message:
+              formData.get("additional_message")
+          };
+
+
+          /*
+            BASIC CHECK
+          */
+
+          if (!repairRequest.customer_name) {
+
+            showError(
+              "Please enter customer name."
+            );
+
+            return;
+          }
+
+          if (!repairRequest.customer_phone) {
+
+            showError(
+              "Please enter phone number."
+            );
+
+            return;
+          }
+
+          if (!repairRequest.mobile_model) {
+
+            showError(
+              "Please enter mobile model."
+            );
+
+            return;
+          }
+
+          if (!repairRequest.repair_service) {
+
+            showError(
+              "Please select a repair service."
+            );
+
+            return;
+          }
+
+          if (!repairRequest.repair_problem) {
+
+            showError(
+              "Please enter the repair problem."
+            );
+
+            return;
+          }
+
+          if (!repairRequest.customer_location) {
+
+            showError(
+              "Please enter your location."
+            );
+
+            return;
           }
 
 
           /*
-            SUCCESS
+            SEND TO SUPABASE
           */
 
-          message.className =
-            "success";
+          try {
 
-          message.textContent =
-            "✅ Repair request submitted successfully! We will contact you shortly.";
+            const response =
+              await fetch(
 
-          message.style.display =
-            "block";
+                SUPABASE_URL +
+                "/rest/v1/repair_requests",
 
-          form.reset();
+                {
+
+                  method: "POST",
+
+                  headers: {
+
+                    "Content-Type":
+                      "application/json",
+
+                    "apikey":
+                      SUPABASE_KEY,
+
+                    "Authorization":
+                      "Bearer " +
+                      SUPABASE_KEY,
+
+                    "Prefer":
+                      "return=minimal"
+                  },
+
+                  body:
+                    JSON.stringify(
+                      repairRequest
+                    )
+                }
+              );
 
 
-          /*
-            Keep default pickup selection
-          */
+            /*
+              CHECK SUPABASE RESPONSE
+            */
 
-          document.querySelector(
-            'input[name="pickup"][value="Yes"]'
-          ).checked = true;
+            if (!response.ok) {
+
+              const errorText =
+                await response.text();
+
+              throw new Error(
+                errorText ||
+                "Unable to submit repair request."
+              );
+            }
 
 
-        } catch (error) {
+            /*
+              SUCCESS
+            */
 
-    console.error("SUPABASE ERROR:", error);
+            message.className =
+              "success";
 
-    message.className = "error";
+            message.textContent =
+              "✅ Repair request submitted successfully! We will contact you shortly.";
 
-    message.textContent =
-        "❌ " + error.message;
+            message.style.display =
+              "block";
 
-    message.style.display = "block";
+
+            form.reset();
+
+
+            /*
+              Keep Yes selected
+            */
+
+            document.querySelector(
+              'input[name="pickup"][value="Yes"]'
+            ).checked = true;
+
+          }
+
+          catch (error) {
+
+            console.error(
+              "SUPABASE ERROR:",
+              error
+            );
+
+            message.className =
+              "error";
+
+            message.textContent =
+              "❌ " +
+              error.message;
+
+            message.style.display =
+              "block";
+          }
+
+
+          submitBtn.disabled =
+            false;
+
+          submitBtn.textContent =
+            "Submit Repair Request";
+
         }
+      );
 
 
-        submitBtn.disabled = false;
-        submitBtn.textContent =
-          "Submit Repair Request";
+    /*
+      SHOW ERROR
+    */
 
-      });
+    function showError(text) {
+
+      const message =
+        document.getElementById("message");
+
+      const submitBtn =
+        document.getElementById("submitBtn");
+
+      message.className =
+        "error";
+
+      message.textContent =
+        "❌ " + text;
+
+      message.style.display =
+        "block";
+
+      submitBtn.disabled =
+        false;
+
+      submitBtn.textContent =
+        "Submit Repair Request";
+    }
+
   </script>
 
 </body>
